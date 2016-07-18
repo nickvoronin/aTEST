@@ -1,0 +1,802 @@
+/* Global ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* Light */
+@font-face {
+  font-family: "Roboto-Condensed";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/roboto/Roboto-Light.ttf") format('truetype');
+}
+@font-face {
+  font-family: "Roboto-Condensed";
+  font-style: italic;
+  font-weight: 300;
+  src: url("../fonts/roboto/Roboto-LightItalic.ttf") format('truetype');
+}
+/* Normal */
+@font-face {
+  font-family: "Roboto-Condensed";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/roboto/Roboto-Regular.ttf") format('truetype');
+}
+@font-face {
+  font-family: "Roboto-Condensed";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/roboto/Roboto-MediumItalic.ttf") format('truetype');
+}
+/* Bold */
+@font-face {
+  font-family: "Roboto-Condensed";
+  font-style: normal;
+  font-weight: 700;
+  src: url("../fonts/roboto/Roboto-Bold.ttf") format('truetype');
+}
+@font-face {
+  font-family: "Roboto-Condensed";
+  font-style: italic;
+  font-weight: 700;
+  src: url("fonts/Roboto-BoldItalic.ttf") format('truetype');
+}
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11 {
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.col-1 { width: 8.333333333333332%;  }
+.col-2 { width: 16.666666666666664%; }
+.col-3 { width: 25%; }
+.col-4 { width: 33.33333333333333%;  }
+.col-5 { width: 41.66666666666667%;  }
+.col-6 { width: 50%; }
+.col-7 { width: 58.333333333333336%; }
+.col-8 { width: 66.66666666666666%;  }
+.col-9 { width: 75%; }
+.col-10{ width: 83.33333333333334%;  }
+.col-11{ width: 91.66666666666666%;  }
+.col-12{ width: 100%;}
+.cf:before,
+.cf:after {
+  content: "";
+  display: table;
+}
+.cf:after {
+  clear: both;
+}
+body {
+  background: #fefff7;
+  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+}
+.wrapper {
+  width: 80%;
+  margin: 0 auto;
+}
+.blueButton {
+  width: 100%;
+  padding: 15px;
+  color: #fff;
+  text-align: center;
+  border: 2px solid #134384;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-color: #0b4faf;
+  font-size: 25px;
+  background-size: 100%;
+  background-image: -moz-linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%);
+  background-image: -webkit-linear-gradient(94deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%);
+  background-image: linear-gradient(356deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 100%);
+  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+}
+.inputMain {
+  padding: 10px;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 400;
+  color: #5f5e5e;
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+}
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## # Global */
+
+/* HeaderIndexPage ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## # ## */
+
+.headerIndexPage {
+  width: 100%;
+  height: 150px;
+  background: #4a665e;
+  z-index: 10;
+  text-align: center;
+  position: fixed;
+  top: 0;
+}
+.headerIndexPage__left-wrap {
+  float: left;
+  width: 458px;
+  height: 110px;
+}
+.headerIndexPage__right-wrap {
+  float: right;
+  width: 458px;
+  height: 150px;
+  background: #539657;
+  text-align: center;
+}
+.headerIndexPage__social-registration-buttons {
+  padding-top: 65px;
+}
+.headerIndexPage__social-registration-buttons a {
+  text-decoration: none;
+  color: #f8fbd8;
+  font-size: 13px;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.headerIndexPage__social-registration-buttons a:hover {
+  color: #fff;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.headerIndexPage__logo {
+  padding-top: 40px;
+}
+.headerIndexPage__logo a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #f8fbd8;
+  font-size: 30px;
+  text-shadow: 1px 1px 2px rgba(34, 34, 34, 0.5);
+}
+.headerIndexPage__feature {
+  padding-top: 10px;
+}
+.headerIndexPage__feature p {
+  color: #f8fbd8;
+  font-size: 15px;
+  text-shadow: 1px 1px 2px rgba(34, 34, 34, 0.5);
+}
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## # ## HeaderIndexPage */
+
+/* Promo Background Index Page ## ## ## # ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+.promoBackgroundIndexPage {
+  background: url('../img/promoBackgroundIndexPage.jpg') no-repeat center;
+  background-size: cover;
+  position: relative;
+  height: 800px;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+/* Creating New Topics ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+.headerCreatingNewTopicsPage {
+  width: 100%;
+  background-size: auto;
+  background: #4a665e;
+  background-image: url("../img/txt.png");
+  text-align: center;
+}
+.headerCreatingNewTopicsPage__headerTitle {
+  padding: 60px 0;
+  font-size: 25px;
+  color: #fff;
+  font-weight: 100;
+}
+
+
+.creatingNewTopicsPageSection {
+  padding-top: 40px;
+}
+.creatingNewTopicsPageSection__titleEdit {
+  margin-bottom: 20px;
+}
+.creatingNewTopicsPageSection__titleEditForm {
+  position: relative;
+}
+.creatingNewTopicsPageSection__titleEditForm:hover:after {
+  content: '';
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: url("../img/edit-dark.png");
+}
+.creatingNewTopicsPageSection__titleEditInput {
+  background: none;
+  outline: none;
+  color: #8f8f8f;
+  width: 100%;
+  font-size: 25px;
+  font-weight: 100;
+  padding: 10px;
+  width: 100%;
+  color: #5f5e5e;
+  border: 1px solid transparent;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.creatingNewTopicsPageSection__titleEditInput:focus {
+  background: #fff url('../img/backgroundLine.png');
+  border: 1px solid #c7c7c7;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.containerNewTopicQuestionAnswer {
+  padding-right: 5px;
+}
+.containerNewTopicQuestionAnswer__question-answer-container {
+  background: #4a665e url("../img/backgroundLine.png");
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 15px;
+  height: 400px;
+  overflow-x: auto;
+  box-sizing: border-box;
+  width: 100%;
+}
+.containerNewTopicQuestionAnswer__question-answer-container ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.containerNewTopicQuestionAnswer__question-answer-container ol li {
+  font-size: 16px;
+  position: relative;
+  padding: 10px 40px 10px 15px;
+  border-radius: 4px;
+  background: #c1d9e3;
+  color: #777;
+  margin-bottom: 5px;
+}
+.containerNewTopicQuestionAnswer__toggleEditPart {
+  padding: 30px 30px 0;
+  // display: none;
+}
+.containerNewTopicQuestionAnswer__toggleEditPart.open {
+  display: block!important;
+}
+.containerNewTopicQuestionAnswer__number {
+  float: left;
+  padding-top: 13px;
+}
+.containerNewTopicQuestionAnswer__textpart {
+  padding-left: 30px;
+  padding-right: 50px;
+}
+.containerNewTopicQuestionAnswer__textpartForm {
+  position: relative;
+}
+.containerNewTopicQuestionAnswer__textpartForm:hover:after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: url("../img/edit-light.png");
+}
+.containerNewTopicQuestionAnswer__textpartForm input {
+  background: none;
+  outline: none;
+  color: #777;
+  border: none;
+  width: 100%;
+  font-size: 18px;
+  padding: 10px;
+  font-weight: 100;
+  border: 1px solid transparent;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.containerNewTopicQuestionAnswer__textpartForm input:focus {
+  font-weight: 100;
+  color: #5f5e5e;
+  background: #fff url('../img/backgroundLine.png');
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.containerNewTopicQuestionAnswer__toggleEditButton {
+  position: absolute;
+  right: 15px;
+  top: 19px;
+  font-size: 13px;
+  cursor: pointer;
+  background: #4a665e;
+  padding: 4px 10px;
+  border-radius: 2px;
+  color: #fff;
+}
+.containerNewTopicQuestionAnswer__toggleEditButton p {
+  float: left;
+  padding-right: 10px;
+}
+.containerNewTopicQuestionAnswer__dropPlus {
+  float: right;
+}
+.containerNewTopicQuestionAnswer__input-container {
+  padding-left: 10px;
+}
+.containerNewTopicQuestionAnswer__input-containerForm  input {
+  margin-bottom: 10px;
+}
+.containerNewTopicQuestionAnswer__addAnswer {
+  padding: 10px;
+  width: 100%;
+  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #5f5e5e;
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: #4a665e;
+  color: #fff!important;
+  font-weight: 100;
+  outline: none;
+}
+.containerNewTopicQuestionAnswer__addAnswer:hover {
+  background: #4a665e url('../img/backgroundLine.png');
+  color: #eee!important;
+}
+.sidebarAnalytics {
+  background: #4a665e url("../img/backgroundLine.png");
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 15px;
+  height: 400px;
+  overflow-x: auto;
+  box-sizing: border-box;
+  color: #fff;
+}
+.creatingNewTopicsPageSectionSaveButton {
+  display: inline-block;
+  padding: 10px 30px;
+  background: #4a665e;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff!important;
+  border: 1px solid #2e403b;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  float: right;
+  margin-top: 10px;
+}
+.creatingNewTopicsPageSectionSaveButton:hover {
+  background: #4a665e url('../img/backgroundLine.png');
+}
+.toggle .containerNewTopicQuestionAnswer__toggleEditPart {
+  display: none;
+}
+.toggle.open .containerNewTopicQuestionAnswer__toggleEditPart {
+  display: block;
+}
+
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+.sidebarAnalytics__title {
+}
+
+.sidebarAnalytics ul {
+  list-style: none;
+  margin-top: 10px;
+}
+.sidebarAnalytics ul li p {
+  font-size: 12px;
+  font-weight: 100;
+  padding: 2px 0;
+}
+.sidebarAnalytics ul span {
+  float: right;
+  font-weight: 100;
+}
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+.filterOptions {
+  position: relative;
+}
+
+.filterOptions:after {
+  background: url("../img/options.png");
+  width: 32px;
+  height: 32px;
+  content: '';
+  position: absolute;
+  cursor: pointer;
+  top: 15px;
+  right: -48px;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.filterOptions:hover:after {
+  transform: rotate(80deg);
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+#svg {
+  padding-top: 10px;
+}
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
