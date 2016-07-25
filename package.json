@@ -1,0 +1,31 @@
+{
+  "main": "app.js",
+  "version": "0.0.1",
+  "description": "Easy online and offline testing",
+  "scripts": {
+    "start": "static",
+    "lint": "jshint blocks/*/**.js --config=.jshintrc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nickvoronin/aTest.git"
+  },
+  "author": "Positron Bohemia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nickvoronin/aTest/issues"
+  },
+  "homepage": "https://github.com/nickvoronin/aTest#readme",
+  "devDependencies": {
+    "jade": "^1.11.0",
+    "jade-loader": "^0.8.0",
+    "jshint": "^2.9.2",
+    "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
+    "babel-preset-es2015": "^6.9.0"
+  }
+}
