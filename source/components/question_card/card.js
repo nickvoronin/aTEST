@@ -26,7 +26,8 @@ export default class Card {
 	 * Generate HTML
 	 */
 	render() {
-		this.el = this._temlate(this.data.title);
+		//debugger;
+		this.el.innerHTML = this._temlate(this.data.title);
 		console.log(`Card: ${this.data.title} rendered`);
 	}
 
