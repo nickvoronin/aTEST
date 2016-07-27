@@ -20,9 +20,12 @@
   },
   "homepage": "https://github.com/nickvoronin/aTest#readme",
   "devDependencies": {
+    "css-loader": "^0.23.1",
+    "eslint": "^3.1.1",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "jshint": "^2.9.2",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
   },
   "dependencies": {
