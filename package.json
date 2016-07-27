@@ -4,7 +4,10 @@
   "description": "Easy online and offline testing",
   "scripts": {
     "start": "static",
-    "lint": "jshint blocks/*/**.js --config=.jshintrc"
+    "lint": "eslint source/*/**.js; exit 0",
+    "build": "webpack",
+    "dev": "webpack -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
