@@ -1,3 +1,32 @@
-//
-   Created by nickvoronin on 7/25/16.
+.app
+    header.headerCreatingNewTopicsPage
+        .wrapper
+            .headerCreatingNewTopicsPage__headerTitle
+                p Создание Новой Темы
 
+    section.creatingNewTopicsPageSection
+        .wrapper
+            // Input Редактирования / Название Темы
+            .creatingNewTopicsPageSection__titleEdit
+                form(method="post" action="").creatingNewTopicsPageSection__titleEditForm
+                    input(type="text" value='Все о Мише' placeholder="Название Темы").creatingNewTopicsPageSection__titleEditInput
+            // Left Container New Topic Question Answer
+            .containerNewTopicQuestionAnswer.col-10
+                .containerNewTopicQuestionAnswer__question-answer-container.toggle
+                    ol
+
+
+        // Sidebar Analytics
+        .sidebarAnalytics.col-2.cf
+            .sidebarAnalytics__title
+                p Topic Info
+            ul
+                li
+                    p Сложность 1
+                        span 5
+                li
+                    p Сложность 2
+                        span 3
+                li
+                    p Сложность 3
+                        span 7
