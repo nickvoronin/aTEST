@@ -19,7 +19,7 @@ body
         // Input Редактирования / Название Темы
         .creatingNewTopicsPageSection__titleEdit
           form(method="post" action="").creatingNewTopicsPageSection__titleEditForm
-            input(type="text" value='Все о Мише' placeholder="Название Темы").creatingNewTopicsPageSection__titleEditInput
+            input(type="text" value= name placeholder="Название Темы").creatingNewTopicsPageSection__titleEditInput
         // Left Container New Topic Question Answer
         .containerNewTopicQuestionAnswer.col-10
           .containerNewTopicQuestionAnswer__question-answer-container.toggle
@@ -30,7 +30,7 @@ body
                   span.containerNewTopicQuestionAnswer__number 1
                   article.containerNewTopicQuestionAnswer__textpart
                     form(action="").containerNewTopicQuestionAnswer__textpartForm
-                      input(type="text" value='Сколько лет Мише?' placeholder="Введите вопрос")
+                      input(type="text" value= request placeholder="Введите вопрос")
                   .containerNewTopicQuestionAnswer__toggleEditButton
                     p Edit
                     .containerNewTopicQuestionAnswer__dropPlus.drop +
