@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -45,95 +45,42 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
-	var _topic = __webpack_require__(1);
-	
-	var _topic2 = _interopRequireDefault(_topic);
-	
-	var _card = __webpack_require__(5);
-	
-	var _card2 = _interopRequireDefault(_card);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
+	__webpack_require__(1);
+
+	__webpack_require__(5);
+
 	var APP_EL = document.querySelector(".app");
-	
-	var cardsOptions = {};
-	
-	var card = new _card2.default(cardsOptions);
-	var topic = new _topic2.default({});
+
+	var card = new Card();
+	var topic = new Topic();
+
+	//card._initEvents();
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _topic = __webpack_require__(2);
-	
+
 	var _topic2 = _interopRequireDefault(_topic);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var Topic = function () {
-		function Topic(options) {
-			_classCallCheck(this, Topic);
-	
-			this.el = options.el;
-			this.data = options.data || { title: 'unknown', items: [] };
-			this._temlate = _topic2.default;
-	
-			this.setData(this.data);
-			this.render();
-			this._initEvents();
-		}
-	
-		/**
-	  * Generate HTML
-	  */
-	
-	
-		_createClass(Topic, [{
-			key: "render",
-			value: function render() {
-				this.el = this._temlate(this.data.title);
-				console.log("Topic: " + this.data.title + " rendered");
-			}
-	
-			/**
-	   * Init events listening
-	   * @private
-	   */
-	
-		}, {
-			key: "_initEvents",
-			value: function _initEvents() {
-				console.log("Topic: " + this.data.title + " events initialised");
-			}
-	
-			/**
-	   * Set data
-	   * @param data
-	   */
-	
-		}, {
-			key: "setData",
-			value: function setData(data) {
-				this.data = data;
-			}
-		}]);
-	
-		return Topic;
-	}();
-	
+
+	var Topic = function Topic(options) {
+		_classCallCheck(this, Topic);
+
+		this.options = options;
+	};
+
 	exports.default = Topic;
 
 /***/ },
@@ -141,12 +88,12 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(3);
-	
+
 	module.exports = function template(locals) {
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
-	
+
 	buf.push("<!--Created by nickvoronin on 7/25/16.-->");;return buf.join("");
 	}
 
@@ -155,7 +102,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	/**
 	 * Merge two attribute objects giving precedence
 	 * to values in object `b`. Classes are special-cased
@@ -167,9 +114,9 @@
 	 * @return {Object} a
 	 * @api private
 	 */
-	
+
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
+
 	exports.merge = function merge(a, b) {
 	  if (arguments.length === 1) {
 	    var attrs = a[0];
@@ -180,7 +127,7 @@
 	  }
 	  var ac = a['class'];
 	  var bc = b['class'];
-	
+
 	  if (ac || bc) {
 	    ac = ac || [];
 	    bc = bc || [];
@@ -188,16 +135,16 @@
 	    if (!Array.isArray(bc)) bc = [bc];
 	    a['class'] = ac.concat(bc).filter(nulls);
 	  }
-	
+
 	  for (var key in b) {
 	    if (key != 'class') {
 	      a[key] = b[key];
 	    }
 	  }
-	
+
 	  return a;
 	};
-	
+
 	/**
 	 * Filter null `val`s.
 	 *
@@ -205,11 +152,11 @@
 	 * @return {Boolean}
 	 * @api private
 	 */
-	
+
 	function nulls(val) {
 	  return val != null && val !== '';
 	}
-	
+
 	/**
 	 * join array as classes.
 	 *
@@ -222,7 +169,7 @@
 	    return val[key];
 	  }) : [val]).filter(nulls).join(' ');
 	}
-	
+
 	/**
 	 * Render the given classes.
 	 *
@@ -246,7 +193,7 @@
 	    return '';
 	  }
 	};
-	
+
 	exports.style = function (val) {
 	  if (val && (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object') {
 	    return Object.keys(val).map(function (style) {
@@ -295,7 +242,7 @@
 	    return ' ' + key + '="' + val + '"';
 	  }
 	};
-	
+
 	/**
 	 * Render the given attributes object.
 	 *
@@ -305,14 +252,14 @@
 	 */
 	exports.attrs = function attrs(obj, terse) {
 	  var buf = [];
-	
+
 	  var keys = Object.keys(obj);
-	
+
 	  if (keys.length) {
 	    for (var i = 0; i < keys.length; ++i) {
 	      var key = keys[i],
 	          val = obj[key];
-	
+
 	      if ('class' == key) {
 	        if (val = joinClasses(val)) {
 	          buf.push(' ' + key + '="' + val + '"');
@@ -322,10 +269,10 @@
 	      }
 	    }
 	  }
-	
+
 	  return buf.join('');
 	};
-	
+
 	/**
 	 * Escape the given string of `html`.
 	 *
@@ -333,7 +280,7 @@
 	 * @return {String}
 	 * @api private
 	 */
-	
+
 	var jade_encode_html_rules = {
 	  '&': '&amp;',
 	  '<': '&lt;',
@@ -341,17 +288,17 @@
 	  '"': '&quot;'
 	};
 	var jade_match_html = /[&<>"]/g;
-	
+
 	function jade_encode_char(c) {
 	  return jade_encode_html_rules[c] || c;
 	}
-	
+
 	exports.escape = jade_escape;
 	function jade_escape(html) {
 	  var result = String(html).replace(jade_match_html, jade_encode_char);
 	  if (result === '' + html) return html;else return result;
 	};
-	
+
 	/**
 	 * Re-throw the given `err` in context to the
 	 * the jade in `filename` at the given `lineno`.
@@ -361,7 +308,7 @@
 	 * @param {String} lineno
 	 * @api private
 	 */
-	
+
 	exports.rethrow = function rethrow(err, filename, lineno, str) {
 	  if (!(err instanceof Error)) throw err;
 	  if ((typeof window != 'undefined' || !filename) && !str) {
@@ -377,19 +324,19 @@
 	      lines = str.split('\n'),
 	      start = Math.max(lineno - context, 0),
 	      end = Math.min(lines.length, lineno + context);
-	
+
 	  // Error context
 	  var context = lines.slice(start, end).map(function (line, i) {
 	    var curr = i + start + 1;
 	    return (curr == lineno ? '  > ' : '    ') + curr + '| ' + line;
 	  }).join('\n');
-	
+
 	  // Alter exception message
 	  err.path = filename;
 	  err.message = (filename || 'Jade') + ':' + lineno + '\n' + context + '\n\n' + err.message;
 	  throw err;
 	};
-	
+
 	exports.DebugItem = function DebugItem(lineno, filename) {
 	  this.lineno = lineno;
 	  this.filename = filename;
@@ -406,21 +353,21 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	
+
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _card = __webpack_require__(6);
-	
+
 	var _card2 = _interopRequireDefault(_card);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	/**
 	 * @class Card
 	 * Card with questions and answers
@@ -432,54 +379,52 @@
 	  */
 		function Card(options) {
 			_classCallCheck(this, Card);
-	
+
 			this.el = options.el;
-			this.data = options.data || { title: 'unknown', items: [] };
+			this.data = opts.data || { title: '', items: [] };
 			this._temlate = _card2.default;
-	
+
 			this.setData(this.data);
-			this.render();
 			this._initEvents();
 		}
-	
+
 		/**
 	  * Generate HTML
 	  */
-	
-	
+
+
 		_createClass(Card, [{
 			key: "render",
 			value: function render() {
-				this.el = this._temlate(this.data.title);
-				console.log("Card: " + this.data.title + " rendered");
+				this.el.innerHTML = this._temlate(this.data);
 			}
-	
+
 			/**
 	   * Init events listening
 	   * @private
 	   */
-	
+
 		}, {
 			key: "_initEvents",
 			value: function _initEvents() {
-				console.log("Card: " + this.data.title + " events initialised");
+				console.log("Initialising eventss");
 			}
-	
+
 			/**
 	   * Set data
 	   * @param data
 	   */
-	
+
 		}, {
 			key: "setData",
 			value: function setData(data) {
 				this.data = data;
 			}
 		}]);
-	
+
 		return Card;
 	}();
-	
+
 	exports.default = Card;
 
 /***/ },
@@ -487,15 +432,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(3);
-	
+
 	module.exports = function template(locals) {
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
-	
+
 	buf.push("<!--Created by nickvoronin on 7/25/16.-->");;return buf.join("");
 	}
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=main.js.map

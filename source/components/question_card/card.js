@@ -1,7 +1,6 @@
 "use strict";
 
-import "./menu.css";
-import template from "./menu.jade";
+import template from "./card.jade";
 
 /**
  * @class Card
@@ -14,10 +13,11 @@ export default class Card {
 	 */
 	constructor(options) {
 		this.el = options.el;
-		this.data = options.data;
+		this.data = options.data || {title: 'unknown', items: []};
 		this._temlate = template;
 
-		this.setData(opts.data || {title: '', items: []});
+		this.setData(this.data);
+		this.render();
 		this._initEvents();
 
 	}
@@ -26,7 +26,8 @@ export default class Card {
 	 * Generate HTML
 	 */
 	render() {
-		this.el.innerHTML = this._temlate(this.data);
+		this.el = this._temlate(this.data.title);
+		console.log(`Card: ${this.data.title} rendered`);
 	}
 
 	/**
@@ -34,7 +35,7 @@ export default class Card {
 	 * @private
 	 */
 	_initEvents() {
-		console.log("Initialising events");
+		console.log(`Card: ${this.data.title} events initialised`);
 	}
 
 	/**

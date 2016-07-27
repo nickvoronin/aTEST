@@ -1,10 +1,11 @@
 "use strict";
 
-import "./topic.js";
-import "./card.js";
+import Topic from "../topic/topic.js";
+import Card from "../question_card/card.js";
 
 const APP_EL = document.querySelector(".app");
 
-const card = new Card();
-const topic = new Topic();
+const cardsOptions = {};
 
+const card = new Card(cardsOptions);
+const topic = new Topic({});
