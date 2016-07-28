@@ -1,13 +1,10 @@
-"use strict";
-
 import Topic from "../topic/topic.js";
-import Card from "../question_card/card.js";
+import Model from "../model/model.js";
 
-const APP_EL = document.querySelector(".app");
-
-const cardsOptions = {
-	el: document.querySelector(".card")
+const topicOptions = {
+	el: document.querySelector(".card"),
 };
 
-const card = new Card(cardsOptions);
-const topic = new Topic({});
+const topic = new Topic(topicOptions);
+const model = new Model();
+model.fetch();

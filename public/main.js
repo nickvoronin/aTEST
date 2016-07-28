@@ -50,20 +50,19 @@
 	
 	var _topic2 = _interopRequireDefault(_topic);
 	
-	var _card = __webpack_require__(5);
+	var _model = __webpack_require__(5);
 	
-	var _card2 = _interopRequireDefault(_card);
+	var _model2 = _interopRequireDefault(_model);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var APP_EL = document.querySelector(".app");
-	
-	var cardsOptions = {
+	var topicOptions = {
 		el: document.querySelector(".card")
 	};
 	
-	var card = new _card2.default(cardsOptions);
-	var topic = new _topic2.default({});
+	var topic = new _topic2.default(topicOptions);
+	var model = new _model2.default();
+	model.fetch();
 
 /***/ },
 /* 1 */
@@ -85,12 +84,38 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Topic = function () {
-		function Topic(options) {
-			_classCallCheck(this, Topic);
+	var defaultCard = {
+		name: "Sample test",
+		items: [{
+			request: "Is this a question?",
+			responses: ["yes", "no", "maybe"],
+			multivariant: true,
+			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
+			rightAnswers: [0, 2]
+		}, {
+			request: "Wanna get high?",
+			responses: ["yes", "no"],
+			multivariant: false,
+			reward: 2,
+			rightAnswers: [0]
+		}]
+	};
+	
+	/**
+	 * @class Card
+	 * Card with questions and answers
+	 */
+	
+	var Card = function () {
+		/**
+	  *
+	  * @param {Object} options
+	  */
+		function Card(options) {
+			_classCallCheck(this, Card);
 	
 			this.el = options.el;
-			this.data = options.data || { title: 'unknown', items: [] };
+			this.data = options.data || defaultCard;
 			this._temlate = _topic2.default;
 	
 			this.setData(this.data);
@@ -103,11 +128,10 @@
 	  */
 	
 	
-		_createClass(Topic, [{
+		_createClass(Card, [{
 			key: "render",
 			value: function render() {
-				this.el = this._temlate(this.data.title);
-				console.log("Topic: " + this.data.title + " rendered");
+				this.el.innerHTML = this._temlate(this.data);
 			}
 	
 			/**
@@ -117,9 +141,7 @@
 	
 		}, {
 			key: "_initEvents",
-			value: function _initEvents() {
-				console.log("Topic: " + this.data.title + " events initialised");
-			}
+			value: function _initEvents() {}
 	
 			/**
 	   * Set data
@@ -133,10 +155,10 @@
 			}
 		}]);
 	
-		return Topic;
+		return Card;
 	}();
 	
-	exports.default = Topic;
+	exports.default = Card;
 
 /***/ },
 /* 2 */
@@ -148,8 +170,8 @@
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
-	
-	buf.push("<div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\" value=\"Все о Мише\" placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol></ol></div></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></section></div>");;return buf.join("");
+	;var locals_for_with = (locals || {});(function (name, request) {
+	buf.push("<!DOCTYPE html><!DOCTYPE html><html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/style.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/component.css\"><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><li data-id=\"1\"><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">1</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", request, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p>Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus drop\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf\"><div class=\"containerNewTopicQuestionAnswer__checkBox-container col-2\"><div class=\"containerNewTopicQuestionAnswer__svg\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-checkbox ac-checkmark\"><ul><li><input name=\"cb0\" type=\"checkbox\" id=\"cb0\"><laber for=\"cb0\">Правильный</laber><!-- При нажатии на кнопку class=\"containerNewTopicQuestionAnswer__addAnswer\" создаются два класса--><!-- 1. class=\"checkBox-container__addNewCheckbox\" в котором меняются цифры input id=\"\" name=\"\" и label for=\"\"--><!-- 2. class=\"containerNewTopicQuestionAnswer__addNewInput\"--></li><div class=\"checkBox-container__addNewCheckbox\"><li><input name=\"cb1\" type=\"checkbox\" id=\"cb1\"><laber for=\"cb1\">Правильный</laber></li></div></ul></form></section></div></div></div><div class=\"containerNewTopicQuestionAnswer__input-container col-10 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\"><div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\" value=\"18\" class=\"inputMain\"></div><div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\" value=\"29\" class=\"inputMain\"></div><div class=\"col-12 cf\"><input type=\"button\" value=\"Добавить ответ\" class=\"containerNewTopicQuestionAnswer__addAnswer\"></div><div class=\"col-12 cf\"><div class=\"col-10 cf\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-radio ac-circle difficulty\"><ul><li><input name=\"r4\" type=\"radio\" id=\"r11\"><laber for=\"r11\">Сложность 1</laber></li><li><input name=\"r5\" type=\"radio\" id=\"r12\"><laber for=\"r12\">Сложность 2</laber></li><li><input name=\"r6\" type=\"radio\" id=\"r13\"><laber for=\"r13\">Сложность 3</laber></li></ul></form></section></div></div><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></div></div></div></article></li></ol></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined,"request" in locals_for_with?locals_for_with.request:typeof request!=="undefined"?request:undefined));;return buf.join("");
 	}
 
 /***/ },
@@ -405,7 +427,7 @@
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	"use strict";
 	
@@ -415,108 +437,132 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _card = __webpack_require__(6);
-	
-	var _card2 = _interopRequireDefault(_card);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var defaultCard = {
-		name: "Sample test",
-		items: [{
-			request: "Is this a question?",
-			responses: ["yes", "no", "maybe"],
-			multivariant: true,
-			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
-			rightAnswers: [0, 2]
-		}, {
-			request: "Wanna get high?",
-			responses: ["yes", "no"],
-			multivariant: false,
-			reward: 2,
-			rightAnswers: [0]
-		}]
-	};
-	
+	var BASE_URL = "";
 	/**
-	 * @class Card
-	 * Card with questions and answers
+	 * @class Model
 	 */
 	
-	var Card = function () {
+	var Model = function () {
 		/**
-	  *
-	  * @param {Object} options
+	  * Model constructor
+	  * @param options
 	  */
-		function Card(options) {
-			_classCallCheck(this, Card);
+		function Model() {
+			var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
-			this.el = options.el;
-			this.data = options.data || defaultCard;
-			this._temlate = _card2.default;
+			_classCallCheck(this, Model);
 	
-			this.setData(this.data);
-			this.render();
-			this._initEvents();
+			this.data = options.data || { field: "random data" };
 		}
 	
-		/**
-	  * Generate HTML
-	  */
-	
-	
-		_createClass(Card, [{
-			key: "render",
-			value: function render() {
-				//debugger;
-	
-				this.el.innerHTML = this._temlate(this.data);
-				console.log("Card: " + this.data.title + " rendered");
+		_createClass(Model, [{
+			key: "getData",
+			value: function getData() {
+				return this.data;
 			}
-	
-			/**
-	   * Init events listening
-	   * @private
-	   */
-	
-		}, {
-			key: "_initEvents",
-			value: function _initEvents() {
-				console.log("Card: " + this.data.title + " events initialised");
-			}
-	
-			/**
-	   * Set data
-	   * @param data
-	   */
-	
 		}, {
 			key: "setData",
 			value: function setData(data) {
 				this.data = data;
 			}
+		}, {
+			key: "encode",
+			value: function encode(data) {
+				return JSON.stringify(data);
+			}
+		}, {
+			key: "decode",
+			value: function decode(data) {
+				return JSON.parse(data);
+			}
+	
+			/**
+	   * Fetch data
+	   * @param resolve - Callback function
+	   * @returns {XMLHttpRequest} - Request object
+	   */
+	
+		}, {
+			key: "fetch",
+			value: function fetch(resolve) {
+				var _this = this;
+	
+				// TODO change fake url!!!
+				var fakeURL = "index.php?topics";
+	
+				var fetchURL = "";
+				var req = this._makeRequest("GET", fakeURL);
+	
+				req.onreadystatechange = function () {
+					if (req.readyState !== 4) return;
+	
+					if (req.state !== 200) {
+						// TODO Handle Error
+						console.error("Error: Fetching failed");
+					} else {
+						var data = _this.decode(req.responseText);
+						console.log("Data fecthe: " + data);
+						_this.setData(data);
+						resolve(_this.getData());
+					}
+				};
+	
+				req.send();
+	
+				return req;
+			}
+		}, {
+			key: "save",
+			value: function save(resolve) {
+				var _this2 = this;
+	
+				var saveURL = "";
+				var req = this._makeRequest("POST", saveURL);
+	
+				req.onreadystatechange = function () {
+					if (req.readyState !== 4) return;
+	
+					if (req.state !== 200) {
+						// TODO Handle Error
+						console.error("Error: Fetching failed");
+					} else {
+						var data = _this2.decode(req.responseText);
+						console.log(data);
+						_this2.setData(data);
+						resolve(_this2.getData());
+					}
+				};
+	
+				req.send();
+	
+				return req;
+			}
+	
+			/**
+	   * Generate request
+	   * @param {String} - HTTP method
+	   * @param {String} Add suffixURL to base url
+	   * @returns {XMLHttpRequest}
+	   * @private
+	   */
+	
+		}, {
+			key: "_makeRequest",
+			value: function _makeRequest(method) {
+				var suffixURL = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
+	
+				var xhr = new XMLHttpRequest();
+				xhr.open(method, BASE_URL + suffixURL, true);
+				return xhr;
+			}
 		}]);
 	
-		return Card;
+		return Model;
 	}();
 	
-	exports.default = Card;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(3);
-	
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-	;var locals_for_with = (locals || {});(function (name, request) {
-	buf.push("<!DOCTYPE html><!DOCTYPE html><html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/style.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/component.css\"><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><li data-id=\"1\"><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">1</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", request, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p>Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus drop\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf\"><div class=\"containerNewTopicQuestionAnswer__checkBox-container col-2\"><div class=\"containerNewTopicQuestionAnswer__svg\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-checkbox ac-checkmark\"><ul><li><input name=\"cb0\" type=\"checkbox\" id=\"cb0\"><laber for=\"cb0\">Правильный</laber><!-- При нажатии на кнопку class=\"containerNewTopicQuestionAnswer__addAnswer\" создаются два класса--><!-- 1. class=\"checkBox-container__addNewCheckbox\" в котором меняются цифры input id=\"\" name=\"\" и label for=\"\"--><!-- 2. class=\"containerNewTopicQuestionAnswer__addNewInput\"--></li><div class=\"checkBox-container__addNewCheckbox\"><li><input name=\"cb1\" type=\"checkbox\" id=\"cb1\"><laber for=\"cb1\">Правильный</laber></li></div></ul></form></section></div></div></div><div class=\"containerNewTopicQuestionAnswer__input-container col-10 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\"><div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\" value=\"18\" class=\"inputMain\"></div><div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\" value=\"29\" class=\"inputMain\"></div><div class=\"col-12 cf\"><input type=\"button\" value=\"Добавить ответ\" class=\"containerNewTopicQuestionAnswer__addAnswer\"></div><div class=\"col-12 cf\"><div class=\"col-10 cf\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-radio ac-circle difficulty\"><ul><li><input name=\"r4\" type=\"radio\" id=\"r11\"><laber for=\"r11\">Сложность 1</laber></li><li><input name=\"r5\" type=\"radio\" id=\"r12\"><laber for=\"r12\">Сложность 2</laber></li><li><input name=\"r6\" type=\"radio\" id=\"r13\"><laber for=\"r13\">Сложность 3</laber></li></ul></form></section></div></div><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></div></div></div></article></li></ol></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined,"request" in locals_for_with?locals_for_with.request:typeof request!=="undefined"?request:undefined));;return buf.join("");
-	}
+	exports.default = Model;
 
 /***/ }
 /******/ ]);
