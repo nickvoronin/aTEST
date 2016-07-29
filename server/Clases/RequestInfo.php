@@ -29,7 +29,8 @@ class RequestInfo {
   }
   
   public function get_request() {
-    //$request=false;
+    $request=false;
+    /*
     switch ($this->method) {
       case 'POST':$request=$server[''];
         break;
@@ -41,15 +42,19 @@ class RequestInfo {
       default:$request=false;
         break;
     }
-    //if($this->method=='PUT') {
-    //  parse_str(file_get_contents('php://input'), $request);
-    //} elseif ($this->method=='POST') {
-    //    $request=$_POST;
-    //  }
+     * 
+     */
+    if($this->method=='PUT') {
+      parse_str(file_get_contents('php://input'), $request);
+    } elseif ($this->method=='POST') {
+        $request=$_POST;
+      }
     return $request;
   }
 }
 
 $RInfo=new RequestInfo($_SERVER);
-$app=new App($RInfo);
+//$app=new App($RInfo);
+
+
 ?>
