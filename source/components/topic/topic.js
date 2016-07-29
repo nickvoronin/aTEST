@@ -1,9 +1,29 @@
 import template from "./topic.jade";
 
 const defaultCard = {
-	name: "Sample test",
-	items: [
+	name: "Sample topic",
+	cards: [
 		{
+			request: "Is this a question?",
+			responses: [
+				"yes",
+				"no",
+				"maybe",
+			],
+			multivariant: true,
+			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
+			rightAnswers: [0, 2],
+		},{
+			request: "Is this a question?",
+			responses: [
+				"yes",
+				"no",
+				"maybe",
+			],
+			multivariant: true,
+			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
+			rightAnswers: [0, 2],
+		},{
 			request: "Is this a question?",
 			responses: [
 				"yes",
@@ -18,7 +38,8 @@ const defaultCard = {
 			request: "Wanna get high?",
 			responses: [
 				"yes",
-				"no",
+				"sure",
+				"why not",
 			],
 			multivariant: false,
 			reward: 2,
@@ -58,6 +79,26 @@ export default class Card {
 	 * @private
 	 */
 	_initEvents() {
+		this.el.addEventListener("click", this._onClick.bind(this));
+	}
+
+	/**
+	 * Handle click events
+	 * @param event
+	 * @private
+	 */
+	_onClick(event) {
+		event.preventDefault();
+		const target = event.target;
+		const shouldToggle = target.closest(".containerNewTopicQuestionAnswer__title");
+
+		if (shouldToggle) {
+			const versions = shouldToggle.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
+			versions.classList.toggle("drop");
+			console.log(versions.classList);
+		}
+
+		// console.log(target);
 	}
 
 	/**
