@@ -34,7 +34,7 @@ export default class Model {
 	 */
 	fetch(resolve) {
 		// TODO change fake url!!!
-		const fakeURL = "index.php?topics";
+		const fakeURL = "json.php";
 
 		const fetchURL = "";
 		const req = this._makeRequest("GET", fakeURL);
@@ -42,14 +42,16 @@ export default class Model {
 		req.onreadystatechange = () => {
 			if (req.readyState !== 4) return;
 
-			if (req.state !== 200) {
+			if (req.status !== 200) {
 				// TODO Handle Error
-				console.error("Error: Fetching failed");
+                                console.log(req);
+                                console.error("Error: Fetching failed " + req.status + " bitch");
 			} else {
 				const data = this.decode(req.responseText);
-				console.log(`Data fecthe: ${data}`);
+				console.log(`Data fecth: ${typeof req.responseText}: ${req.responseText}`);
+				console.log(`Data fecth: ${data}: ${data.user}`);
 				this.setData(data);
-				resolve(this.getData());
+				// resolve(this.getData());
 			}
 		};
 
