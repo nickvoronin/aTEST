@@ -1,4 +1,4 @@
-const BASE_URL = "";
+const BASE_URL = "index.php";
 /**
  * @class Model
  */
@@ -34,7 +34,7 @@ export default class Model {
 	 */
 	fetch(resolve) {
 		// TODO change fake url!!!
-		const fakeURL = "json.php";
+		const fakeURL = "?topics";
 
 		const fetchURL = "";
 		const req = this._makeRequest("GET", fakeURL);
@@ -42,16 +42,14 @@ export default class Model {
 		req.onreadystatechange = () => {
 			if (req.readyState !== 4) return;
 
-			if (req.status !== 200) {
+			if (req.state !== 200) {
 				// TODO Handle Error
-                                console.log(req);
-                                console.error("Error: Fetching failed " + req.status + " bitch");
+				console.error("Error: Fetching failed");
 			} else {
 				const data = this.decode(req.responseText);
-				console.log(`Data fecth: ${typeof req.responseText}: ${req.responseText}`);
-				console.log(`Data fecth: ${data}: ${data.user}`);
+				console.log(`Data fecthe: ${data}`);
 				this.setData(data);
-				// resolve(this.getData());
+				resolve(this.getData());
 			}
 		};
 
@@ -67,9 +65,9 @@ export default class Model {
 		req.onreadystatechange = () => {
 			if (req.readyState !== 4) return;
 
-			if (req.state !== 200) {
+			if (req.status !== 200) {
 				// TODO Handle Error
-				console.error("Error: Fetching failed");
+				console.error(`Error: Fetching failed  ${req.status} bitch`);
 			} else {
 				const data = this.decode(req.responseText);
 				console.log(data);

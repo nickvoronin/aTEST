@@ -435,8 +435,6 @@
 		value: true
 	});
 	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -492,7 +490,7 @@
 				var _this = this;
 	
 				// TODO change fake url!!!
-				var fakeURL = "json.php";
+				var fakeURL = "index.php?topics";
 	
 				var fetchURL = "";
 				var req = this._makeRequest("GET", fakeURL);
@@ -500,16 +498,14 @@
 				req.onreadystatechange = function () {
 					if (req.readyState !== 4) return;
 	
-					if (req.status !== 200) {
+					if (req.state !== 200) {
 						// TODO Handle Error
-						console.log(req);
-						console.error("Error: Fetching failed " + req.status + " bitch");
+						console.error("Error: Fetching failed");
 					} else {
 						var data = _this.decode(req.responseText);
-						console.log("Data fecth: " + _typeof(req.responseText) + ": " + req.responseText);
-						console.log("Data fecth: " + data + ": " + data.user);
+						console.log("Data fecthe: " + data);
 						_this.setData(data);
-						// resolve(this.getData());
+						resolve(_this.getData());
 					}
 				};
 	
