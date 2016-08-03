@@ -230,30 +230,7 @@
 	buf.push("<!DOCTYPE html>");
 	jade_mixins["renderCard"] = jade_interp = function(card, index){
 	var block = (this && this.block), attributes = (this && this.attributes) || {};
-	buf.push("<li" + (jade.attr("data-id", index, true, true)) + "><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">1</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", card.request, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p data-action=\"showVersions\">Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf hidden\"><div class=\"containerNewTopicQuestionAnswer__checkBox-container col-2\"><div class=\"containerNewTopicQuestionAnswer__svg\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-checkbox ac-checkmark\"><ul>");
-	// iterate card.responses
-	;(function(){
-	  var $$obj = card.responses;
-	  if ('number' == typeof $$obj.length) {
-	
-	    for (var i = 0, $$l = $$obj.length; i < $$l; i++) {
-	      var response = $$obj[i];
-	
-	buf.push("<li><input" + (jade.attr("name", "cb" + i, true, true)) + " type=\"checkbox\"><laber" + (jade.attr("for", "cb" + i, true, true)) + ">Правильный</laber><!-- При нажатии на кнопку class=\"containerNewTopicQuestionAnswer__addAnswer\" создаются два класса--><!-- 1. class=\"checkBox-container__addNewCheckbox\" в котором меняются цифры input id=\"\" name=\"\" и label for=\"\"--><!-- 2. class=\"containerNewTopicQuestionAnswer__addNewInput\"-->\n\n</li>");
-	    }
-	
-	  } else {
-	    var $$l = 0;
-	    for (var i in $$obj) {
-	      $$l++;      var response = $$obj[i];
-	
-	buf.push("<li><input" + (jade.attr("name", "cb" + i, true, true)) + " type=\"checkbox\"><laber" + (jade.attr("for", "cb" + i, true, true)) + ">Правильный</laber><!-- При нажатии на кнопку class=\"containerNewTopicQuestionAnswer__addAnswer\" создаются два класса--><!-- 1. class=\"checkBox-container__addNewCheckbox\" в котором меняются цифры input id=\"\" name=\"\" и label for=\"\"--><!-- 2. class=\"containerNewTopicQuestionAnswer__addNewInput\"-->\n\n</li>");
-	    }
-	
-	  }
-	}).call(this);
-	
-	buf.push("</ul></form></section></div></div></div><div class=\"containerNewTopicQuestionAnswer__input-container col-10 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\">");
+	buf.push("<li" + (jade.attr("data-id", index, true, true)) + "><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">1</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", card.request, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p data-action=\"showVersions\">Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf hidden\"><div class=\"containerNewTopicQuestionAnswer__input-container col-12 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\">");
 	// iterate card.responses
 	;(function(){
 	  var $$obj = card.responses;
@@ -262,7 +239,7 @@
 	    for (var index = 0, $$l = $$obj.length; index < $$l; index++) {
 	      var response = $$obj[index];
 	
-	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"></div>");
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\" class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\" class=\"correct\"></div><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div datd-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
 	    }
 	
 	  } else {
@@ -270,7 +247,7 @@
 	    for (var index in $$obj) {
 	      $$l++;      var response = $$obj[index];
 	
-	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"></div>");
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\" class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\" class=\"correct\"></div><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div datd-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
 	    }
 	
 	  }
@@ -301,7 +278,7 @@
 	  }
 	}).call(this);
 	
-	buf.push("</ol></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"cards" in locals_for_with?locals_for_with.cards:typeof cards!=="undefined"?cards:undefined,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
+	buf.push("</ol><button class=\"addCard\">add card</button></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"cards" in locals_for_with?locals_for_with.cards:typeof cards!=="undefined"?cards:undefined,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
 	}
 
 /***/ },

@@ -472,8 +472,30 @@ body {
 }
 
 /* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
-#svg {
-  // padding-top: 10px;
+.checkCorrectAnswer {
+  float: left;
+  padding-top: 13px;
+}
+.singleQuestionForm .inputMain {
+  width: 80%!important;
+}
+.checkCorrectAnswer p {
+  font-size: 12px;
+  padding: 0 20px 0 5px;
+  float: right;
+}
+.buttonDelete {
+  position: relative;
+}
+.buttonDelete:after {
+  position: absolute;
+  content: '';
+  width: 32px;
+  height: 32px;
+  background: url(../img/buttonClose.png);
+  top: -47px;
+  right: 0;
+  cursor: pointer;
 }
 /* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
 
