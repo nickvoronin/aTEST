@@ -85,8 +85,8 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var defaultCard = {
-		name: "Sample test",
-		items: [{
+		name: "Sample topic",
+		cards: [{
 			request: "Is this a question?",
 			responses: ["yes", "no", "maybe"],
 			multivariant: true,
@@ -94,7 +94,7 @@
 			rightAnswers: [0, 2]
 		}, {
 			request: "Wanna get high?",
-			responses: ["yes", "no"],
+			responses: ["yes", "sure", "why not"],
 			multivariant: false,
 			reward: 2,
 			rightAnswers: [0]
@@ -141,7 +141,58 @@
 	
 		}, {
 			key: "_initEvents",
-			value: function _initEvents() {}
+			value: function _initEvents() {
+				this.el.addEventListener("click", this._onClick.bind(this));
+			}
+	
+			/**
+	   * Handle click events
+	   * @param event
+	   * @private
+	   */
+	
+		}, {
+			key: "_onClick",
+			value: function _onClick(event) {
+				event.preventDefault();
+				var target = event.target;
+				var item = target.closest("li");
+	
+				switch (target.dataset.action) {
+					case "showVersions":
+						this._showVersions(item);
+						break;
+					case "addVersion":
+						this.addVersion(item);
+						break;
+					default:
+						return;
+				}
+			}
+		}, {
+			key: "_showVersions",
+			value: function _showVersions(item) {
+				var versions = item.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
+				var indicator = item.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
+				versions.classList.toggle("hidden");
+				indicator.innerHTML = indicator.innerHTML === "+" ? "-" : "+";
+			}
+		}, {
+			key: "addVersion",
+			value: function addVersion(item) {
+				var id = item.dataset.id;
+				var parentNode = item.querySelector(".containerNewTopicQuestionAnswer__input-containerForm");
+				var versions = parentNode.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput");
+				var lastVersion = versions[versions.length - 1];
+				var newVersion = lastVersion.cloneNode(true);
+				newVersion.querySelector("input").value = "";
+	
+				lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
+	
+				var data = this.getData();
+				data.cards[id].responses.push("");
+				this.setData(data);
+			}
 	
 			/**
 	   * Set data
@@ -152,6 +203,11 @@
 			key: "setData",
 			value: function setData(data) {
 				this.data = data;
+			}
+		}, {
+			key: "getData",
+			value: function getData() {
+				return this.data;
 			}
 		}]);
 	
@@ -170,8 +226,82 @@
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
-	;var locals_for_with = (locals || {});(function (name, request) {
-	buf.push("<!DOCTYPE html><!DOCTYPE html><html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/style.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/component.css\"><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><li data-id=\"1\"><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">1</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", request, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p>Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus drop\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf\"><div class=\"containerNewTopicQuestionAnswer__checkBox-container col-2\"><div class=\"containerNewTopicQuestionAnswer__svg\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-checkbox ac-checkmark\"><ul><li><input name=\"cb0\" type=\"checkbox\" id=\"cb0\"><laber for=\"cb0\">Правильный</laber><!-- При нажатии на кнопку class=\"containerNewTopicQuestionAnswer__addAnswer\" создаются два класса--><!-- 1. class=\"checkBox-container__addNewCheckbox\" в котором меняются цифры input id=\"\" name=\"\" и label for=\"\"--><!-- 2. class=\"containerNewTopicQuestionAnswer__addNewInput\"--></li><div class=\"checkBox-container__addNewCheckbox\"><li><input name=\"cb1\" type=\"checkbox\" id=\"cb1\"><laber for=\"cb1\">Правильный</laber></li></div></ul></form></section></div></div></div><div class=\"containerNewTopicQuestionAnswer__input-container col-10 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\"><div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\" value=\"18\" class=\"inputMain\"></div><div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\" value=\"29\" class=\"inputMain\"></div><div class=\"col-12 cf\"><input type=\"button\" value=\"Добавить ответ\" class=\"containerNewTopicQuestionAnswer__addAnswer\"></div><div class=\"col-12 cf\"><div class=\"col-10 cf\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-radio ac-circle difficulty\"><ul><li><input name=\"r4\" type=\"radio\" id=\"r11\"><laber for=\"r11\">Сложность 1</laber></li><li><input name=\"r5\" type=\"radio\" id=\"r12\"><laber for=\"r12\">Сложность 2</laber></li><li><input name=\"r6\" type=\"radio\" id=\"r13\"><laber for=\"r13\">Сложность 3</laber></li></ul></form></section></div></div><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></div></div></div></article></li></ol></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined,"request" in locals_for_with?locals_for_with.request:typeof request!=="undefined"?request:undefined));;return buf.join("");
+	;var locals_for_with = (locals || {});(function (cards, name, undefined) {
+	buf.push("<!DOCTYPE html>");
+	jade_mixins["renderCard"] = jade_interp = function(card, index){
+	var block = (this && this.block), attributes = (this && this.attributes) || {};
+	buf.push("<li" + (jade.attr("data-id", index, true, true)) + "><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">1</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", card.request, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p data-action=\"showVersions\">Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf hidden\"><div class=\"containerNewTopicQuestionAnswer__checkBox-container col-2\"><div class=\"containerNewTopicQuestionAnswer__svg\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-checkbox ac-checkmark\"><ul>");
+	// iterate card.responses
+	;(function(){
+	  var $$obj = card.responses;
+	  if ('number' == typeof $$obj.length) {
+	
+	    for (var i = 0, $$l = $$obj.length; i < $$l; i++) {
+	      var response = $$obj[i];
+	
+	buf.push("<li><input" + (jade.attr("name", "cb" + i, true, true)) + " type=\"checkbox\"><laber" + (jade.attr("for", "cb" + i, true, true)) + ">Правильный</laber><!-- При нажатии на кнопку class=\"containerNewTopicQuestionAnswer__addAnswer\" создаются два класса--><!-- 1. class=\"checkBox-container__addNewCheckbox\" в котором меняются цифры input id=\"\" name=\"\" и label for=\"\"--><!-- 2. class=\"containerNewTopicQuestionAnswer__addNewInput\"-->\n\n</li>");
+	    }
+	
+	  } else {
+	    var $$l = 0;
+	    for (var i in $$obj) {
+	      $$l++;      var response = $$obj[i];
+	
+	buf.push("<li><input" + (jade.attr("name", "cb" + i, true, true)) + " type=\"checkbox\"><laber" + (jade.attr("for", "cb" + i, true, true)) + ">Правильный</laber><!-- При нажатии на кнопку class=\"containerNewTopicQuestionAnswer__addAnswer\" создаются два класса--><!-- 1. class=\"checkBox-container__addNewCheckbox\" в котором меняются цифры input id=\"\" name=\"\" и label for=\"\"--><!-- 2. class=\"containerNewTopicQuestionAnswer__addNewInput\"-->\n\n</li>");
+	    }
+	
+	  }
+	}).call(this);
+	
+	buf.push("</ul></form></section></div></div></div><div class=\"containerNewTopicQuestionAnswer__input-container col-10 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\">");
+	// iterate card.responses
+	;(function(){
+	  var $$obj = card.responses;
+	  if ('number' == typeof $$obj.length) {
+	
+	    for (var index = 0, $$l = $$obj.length; index < $$l; index++) {
+	      var response = $$obj[index];
+	
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"></div>");
+	    }
+	
+	  } else {
+	    var $$l = 0;
+	    for (var index in $$obj) {
+	      $$l++;      var response = $$obj[index];
+	
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"></div>");
+	    }
+	
+	  }
+	}).call(this);
+	
+	buf.push("<div class=\"col-12 cf\"><input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"containerNewTopicQuestionAnswer__addAnswer\"></div><div class=\"col-12 cf\"><div class=\"col-10 cf\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-radio ac-circle difficulty\"><ul><li><input name=\"r4\" type=\"radio\" id=\"r11\"><laber for=\"r11\">Сложность 1</laber></li><li><input name=\"r5\" type=\"radio\" id=\"r12\"><laber for=\"r12\">Сложность 2</laber></li><li><input name=\"r6\" type=\"radio\" id=\"r13\"><laber for=\"r13\">Сложность 3</laber></li></ul></form></section></div></div><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></div></div></div></article></li>");
+	};
+	buf.push("<html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/style.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/component.css\"><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##-->");
+	// iterate cards
+	;(function(){
+	  var $$obj = cards;
+	  if ('number' == typeof $$obj.length) {
+	
+	    for (var index = 0, $$l = $$obj.length; index < $$l; index++) {
+	      var card = $$obj[index];
+	
+	jade_mixins["renderCard"](card, index);
+	    }
+	
+	  } else {
+	    var $$l = 0;
+	    for (var index in $$obj) {
+	      $$l++;      var card = $$obj[index];
+	
+	jade_mixins["renderCard"](card, index);
+	    }
+	
+	  }
+	}).call(this);
+	
+	buf.push("</ol></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"cards" in locals_for_with?locals_for_with.cards:typeof cards!=="undefined"?cards:undefined,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
 	}
 
 /***/ },
@@ -435,11 +565,13 @@
 		value: true
 	});
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var BASE_URL = "";
+	var BASE_URL = "index.php";
 	/**
 	 * @class Model
 	 */
@@ -490,7 +622,7 @@
 				var _this = this;
 	
 				// TODO change fake url!!!
-				var fakeURL = "index.php?topics";
+				var fakeURL = "json.php";
 	
 				var fetchURL = "";
 				var req = this._makeRequest("GET", fakeURL);
@@ -498,14 +630,16 @@
 				req.onreadystatechange = function () {
 					if (req.readyState !== 4) return;
 	
-					if (req.state !== 200) {
+					if (req.status !== 200) {
 						// TODO Handle Error
-						console.error("Error: Fetching failed");
+						console.log(req);
+						console.error("Error: Fetching failed " + req.status + " bitch");
 					} else {
 						var data = _this.decode(req.responseText);
-						console.log("Data fecthe: " + data);
+						console.log("Data fecth: " + _typeof(req.responseText) + ": " + req.responseText);
+						console.log("Data fecth: " + data + ": " + data.user);
 						_this.setData(data);
-						resolve(_this.getData());
+						// resolve(this.getData());
 					}
 				};
 	
@@ -524,9 +658,9 @@
 				req.onreadystatechange = function () {
 					if (req.readyState !== 4) return;
 	
-					if (req.state !== 200) {
+					if (req.status !== 200) {
 						// TODO Handle Error
-						console.error("Error: Fetching failed");
+						console.error("Error: Fetching failed  " + req.status + " bitch");
 					} else {
 						var data = _this2.decode(req.responseText);
 						console.log(data);
