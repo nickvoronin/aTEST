@@ -10,27 +10,19 @@ mixin renderCard(card, index)
                 p(data-action="showVersions") Edit
                 .containerNewTopicQuestionAnswer__dropPlus +
         article.containerNewTopicQuestionAnswer__toggleEditPart.cf.hidden
-            .containerNewTopicQuestionAnswer__checkBox-container.col-2
-                .containerNewTopicQuestionAnswer__svg
-                    #svg
-                        section
-                            form(autocomplete="off").ac-custom.ac-checkbox.ac-checkmark
-                                ul
-                                    each response, i in card.responses
-                                        li
-                                            input(name="cb" + i  type="checkbox")="#cb" + i
-                                            laber(for="cb" + i) Правильный
-                                            // При нажатии на кнопку class="containerNewTopicQuestionAnswer__addAnswer" создаются два класса
-                                            // 1. class="checkBox-container__addNewCheckbox" в котором меняются цифры input id="" name="" и label for=""
-                                            // 2. class="containerNewTopicQuestionAnswer__addNewInput"
-
-
-
-            .containerNewTopicQuestionAnswer__input-container.col-10.cf
+            .containerNewTopicQuestionAnswer__input-container.col-12.cf
                 .containerNewTopicQuestionAnswer__input-containerForm
                     each response, index in card.responses
                         .containerNewTopicQuestionAnswer__addNewInput.col-12.cf
-                            input(type="text" value= response placeholder="Введите вариант ответа").inputMain
+                            form(action="").singleQuestionForm
+                                .checkCorrectAnswer
+                                    p Правильный
+                                    input(type="checkbox").correct
+                                input(type="text" value= response placeholder="Введите вариант ответа").inputMain
+                                .buttonDelete(datd-action= 'delete')
+
+
+
                     .col-12.cf
                         input(type="button" value="Добавить ответ" data-action="addVersion").containerNewTopicQuestionAnswer__addAnswer
                     .col-12.cf
@@ -83,6 +75,7 @@ body
                             // ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##
                             each card, index in cards
                                 +renderCard(card, index)
+                        button.addCard add card
                 // Sidebar Analytics
                 .sidebarAnalytics.col-2.cf
                     .sidebarAnalytics__title
