@@ -13,26 +13,6 @@ const defaultCard = {
 			multivariant: true,
 			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
 			rightAnswers: [0, 2],
-		},{
-			request: "Is this a question?",
-			responses: [
-				"yes",
-				"no",
-				"maybe",
-			],
-			multivariant: true,
-			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
-			rightAnswers: [0, 2],
-		},{
-			request: "Is this a question?",
-			responses: [
-				"yes",
-				"no",
-				"maybe",
-			],
-			multivariant: true,
-			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
-			rightAnswers: [0, 2],
 		},
 		{
 			request: "Wanna get high?",
@@ -90,15 +70,40 @@ export default class Card {
 	_onClick(event) {
 		event.preventDefault();
 		const target = event.target;
-		const shouldToggle = target.closest(".containerNewTopicQuestionAnswer__title");
+		const item = target.closest("li");
 
-		if (shouldToggle) {
-			const versions = shouldToggle.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
-			versions.classList.toggle("drop");
-			console.log(versions.classList);
+		switch (target.dataset.action) {
+		case "showVersions" :
+			this._showVersions(item);
+			break;
+		case "addVersion" :
+			this.addVersion(item);
+			break;
+		default :
+			return;
 		}
+	}
 
-		// console.log(target);
+	_showVersions(item) {
+		const versions = item.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
+		const indicator = item.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
+		versions.classList.toggle("hidden");
+		indicator.innerHTML = (indicator.innerHTML === "+") ? "-" : "+";
+	}
+
+	addVersion(item) {
+		const id = item.dataset.id;
+		const parentNode = item.querySelector(".containerNewTopicQuestionAnswer__input-containerForm");
+		const versions = parentNode.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput");
+		const lastVersion = versions[versions.length - 1];
+		const newVersion = lastVersion.cloneNode(true);
+		newVersion.querySelector("input").value = "";
+
+		lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
+
+		const data = this.getData();
+		data.cards[id].responses.push("");
+		this.setData(data);
 	}
 
 	/**
@@ -107,5 +112,9 @@ export default class Card {
 	 */
 	setData(data) {
 		this.data = data;
+	}
+
+	getData() {
+		return this.data;
 	}
 }

@@ -1,40 +1,38 @@
 <!DOCTYPE html>
-mixin renderCard(card)
-    li(data-id="1")
+mixin renderCard(card, index)
+    li(data-id= index)
         .containerNewTopicQuestionAnswer__title
             span.containerNewTopicQuestionAnswer__number 1
             article.containerNewTopicQuestionAnswer__textpart
                 form(action="").containerNewTopicQuestionAnswer__textpartForm
                     input(type="text" value= card.request placeholder="Введите вопрос")
             .containerNewTopicQuestionAnswer__toggleEditButton
-                p Edit
+                p(data-action="showVersions") Edit
                 .containerNewTopicQuestionAnswer__dropPlus +
-        article.containerNewTopicQuestionAnswer__toggleEditPart.cf
+        article.containerNewTopicQuestionAnswer__toggleEditPart.cf.hidden
             .containerNewTopicQuestionAnswer__checkBox-container.col-2
                 .containerNewTopicQuestionAnswer__svg
                     #svg
                         section
                             form(autocomplete="off").ac-custom.ac-checkbox.ac-checkmark
                                 ul
-                                    li
-                                        input(name="cb0" type="checkbox")#cb0
-                                        laber(for="cb0") Правильный
-                                        // При нажатии на кнопку class="containerNewTopicQuestionAnswer__addAnswer" создаются два класса
-                                        // 1. class="checkBox-container__addNewCheckbox" в котором меняются цифры input id="" name="" и label for=""
-                                        // 2. class="containerNewTopicQuestionAnswer__addNewInput"
-                                    .checkBox-container__addNewCheckbox
+                                    each response, i in card.responses
                                         li
-                                            input(name="cb1" type="checkbox")#cb1
-                                            laber(for="cb1") Правильный
+                                            input(name="cb" + i  type="checkbox")="#cb" + i
+                                            laber(for="cb" + i) Правильный
+                                            // При нажатии на кнопку class="containerNewTopicQuestionAnswer__addAnswer" создаются два класса
+                                            // 1. class="checkBox-container__addNewCheckbox" в котором меняются цифры input id="" name="" и label for=""
+                                            // 2. class="containerNewTopicQuestionAnswer__addNewInput"
+
 
 
             .containerNewTopicQuestionAnswer__input-container.col-10.cf
                 .containerNewTopicQuestionAnswer__input-containerForm
                     each response, index in card.responses
                         .containerNewTopicQuestionAnswer__addNewInput.col-12.cf
-                            input(type="text" value= response).inputMain
+                            input(type="text" value= response placeholder="Введите вариант ответа").inputMain
                     .col-12.cf
-                        input(type="button" value="Добавить ответ").containerNewTopicQuestionAnswer__addAnswer
+                        input(type="button" value="Добавить ответ" data-action="addVersion").containerNewTopicQuestionAnswer__addAnswer
                     .col-12.cf
                         .col-10.cf
                             #svg
@@ -83,8 +81,8 @@ body
                     .containerNewTopicQuestionAnswer__question-answer-container.toggle
                         ol
                             // ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-                            each card in cards
-                                +renderCard(card)
+                            each card, index in cards
+                                +renderCard(card, index)
                 // Sidebar Analytics
                 .sidebarAnalytics.col-2.cf
                     .sidebarAnalytics__title
