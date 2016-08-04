@@ -88,17 +88,41 @@
 		name: "Sample topic",
 		cards: [{
 			request: "Is this a question?",
-			responses: ["yes", "no", "maybe"],
+			responses: [{
+				text: "yes",
+				isRight: true
+			}, {
+				text: "no",
+				isRight: false
+			}, {
+				text: "maybe",
+				isRight: true
+			}],
 			multivariant: true,
 			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
 			rightAnswers: [0, 2]
 		}, {
 			request: "Wanna get high?",
-			responses: ["yes", "sure", "why not"],
+			responses: [{
+				text: "yes",
+				isRight: false
+			}, {
+				text: "sure",
+				isRight: true
+			}, {
+				text: "why not",
+				isRight: false
+			}],
+	
 			multivariant: false,
 			reward: 2,
 			rightAnswers: [0]
 		}]
+	};
+	
+	var defautCardResponse = {
+		text: "",
+		isRight: false
 	};
 	
 	/**
@@ -154,16 +178,21 @@
 		}, {
 			key: "_onClick",
 			value: function _onClick(event) {
-				event.preventDefault();
 				var target = event.target;
-				var item = target.closest("li");
+				var card = target.closest("li");
 	
 				switch (target.dataset.action) {
 					case "showVersions":
-						this._showVersions(item);
+						this._showVersions(card);
 						break;
 					case "addVersion":
-						this.addVersion(item);
+						this.addVersion(card);
+						break;
+					case "delete":
+						this._deleteVersion(card, target);
+						break;
+					case "toggleRightVersion":
+						this._toggleRightVersion(target);
 						break;
 					default:
 						return;
@@ -179,23 +208,86 @@
 			}
 		}, {
 			key: "addVersion",
-			value: function addVersion(item) {
-				var id = item.dataset.id;
-				var parentNode = item.querySelector(".containerNewTopicQuestionAnswer__input-containerForm");
-				var versions = parentNode.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput");
+			value: function addVersion(card) {
+				// клонирую последнюю версию
+				var versions = card.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput");
 				var lastVersion = versions[versions.length - 1];
 				var newVersion = lastVersion.cloneNode(true);
-				newVersion.querySelector("input").value = "";
+	
+				// обнуляю все инпуты
+				var inputs = newVersion.getElementsByTagName("input");
+				var _iteratorNormalCompletion = true;
+				var _didIteratorError = false;
+				var _iteratorError = undefined;
+	
+				try {
+					for (var _iterator = inputs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+						var input = _step.value;
+	
+						if (input.checked) input.checked = false;
+						if (input.value) input.value = "";
+					}
+	
+					// прикрепляю новую версию после последней
+				} catch (err) {
+					_didIteratorError = true;
+					_iteratorError = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion && _iterator.return) {
+							_iterator.return();
+						}
+					} finally {
+						if (_didIteratorError) {
+							throw _iteratorError;
+						}
+					}
+				}
 	
 				lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
 	
+				// TODO пересохраняю карту
 				var data = this.getData();
-				data.cards[id].responses.push("");
+				var id = card.dataset.id;
+				data.cards[id].responses.push(defautCardResponse);
+			}
+		}, {
+			key: "_deleteVersion",
+			value: function _deleteVersion(card, target) {
+				var minimumVersionsAllowed = 2;
+	
+				var form = target.parentElement;
+				var id = form.dataset.id;
+				var versionId = form.dataset.versionid;
+				var data = this.getData();
+	
+				var t1 = data.cards[id].responses.length;
+	
+				if (t1 <= minimumVersionsAllowed) {
+					// TODO сделать визуальное оповещение о том, что операцию выполнить невозможно
+					return;
+				}
+	
+				data.cards[id].responses.splice(versionId, 1); // в данных карточки удаляем вариант ответа
+				this.setData(data); // обновляем данные
+	
+				// удаляем версию ответа из DOM
+				var version = target.closest(".singleQuestionForm");
+				version.remove();
+			}
+		}, {
+			key: "_toggleRightVersion",
+			value: function _toggleRightVersion(target) {
+				var data = this.getData();
+				var id = target.dataset.id;
+				var versionId = target.dataset.versionid;
+				data.cards[id].responses[versionId].isRight = target.checked;
+	
 				this.setData(data);
 			}
 	
 			/**
-	   * Set data
+	   * Set topic data
 	   * @param data
 	   */
 	
@@ -204,6 +296,12 @@
 			value: function setData(data) {
 				this.data = data;
 			}
+	
+			/**
+	   * Get topic data
+	   * @returns {*|{name: string, cards: *[]}}
+	   */
+	
 		}, {
 			key: "getData",
 			value: function getData() {
@@ -236,18 +334,18 @@
 	  var $$obj = card.responses;
 	  if ('number' == typeof $$obj.length) {
 	
-	    for (var index = 0, $$l = $$obj.length; index < $$l; index++) {
-	      var response = $$obj[index];
+	    for (var versionId = 0, $$l = $$obj.length; versionId < $$l; versionId++) {
+	      var response = $$obj[versionId];
 	
-	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\" class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\" class=\"correct\"></div><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div datd-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"correct\"></div><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
 	    }
 	
 	  } else {
 	    var $$l = 0;
-	    for (var index in $$obj) {
-	      $$l++;      var response = $$obj[index];
+	    for (var versionId in $$obj) {
+	      $$l++;      var response = $$obj[versionId];
 	
-	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\" class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\" class=\"correct\"></div><input type=\"text\"" + (jade.attr("value", response, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div datd-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"correct\"></div><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
 	    }
 	
 	  }

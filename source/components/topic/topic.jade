@@ -12,14 +12,14 @@ mixin renderCard(card, index)
         article.containerNewTopicQuestionAnswer__toggleEditPart.cf.hidden
             .containerNewTopicQuestionAnswer__input-container.col-12.cf
                 .containerNewTopicQuestionAnswer__input-containerForm
-                    each response, index in card.responses
+                    each response, versionId in card.responses
                         .containerNewTopicQuestionAnswer__addNewInput.col-12.cf
-                            form(action="").singleQuestionForm
+                            form(action="" data-id= index data-versionId= versionId).singleQuestionForm
                                 .checkCorrectAnswer
                                     p Правильный
-                                    input(type="checkbox").correct
-                                input(type="text" value= response placeholder="Введите вариант ответа").inputMain
-                                .buttonDelete(datd-action= 'delete')
+                                    input(type="checkbox" checked= response.isRight data-action="toggleRightVersion" data-id= index data-versionId= versionId).correct
+                                input(type="text" data-id= versionId value= response.text placeholder="Введите вариант ответа").inputMain
+                                .buttonDelete(data-action= 'delete')
 
 
 
