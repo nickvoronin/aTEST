@@ -1,10 +1,9 @@
-
-.containerNewTopicQuestionAnswer__question-answer-container ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.card {
+  width: 80%;
+  margin: 0 auto;
 }
-.containerNewTopicQuestionAnswer__question-answer-container ol li {
+.card li {
+  list-style: none;
   font-size: 16px;
   position: relative;
   padding: 10px 40px 10px 15px;
@@ -14,18 +13,19 @@
   margin-bottom: 5px;
 }
 .containerNewTopicQuestionAnswer__toggleEditPart {
-  padding: 30px 30px 0;
+  padding: 10px 30px 0;
 }
 .containerNewTopicQuestionAnswer__toggleEditPart.open {
   display: block!important;
 }
 .containerNewTopicQuestionAnswer__number {
   float: left;
-  padding-top: 13px;
+  padding-top: 5px;
+  font-weight: 100;
 }
 .containerNewTopicQuestionAnswer__textpart {
   padding-left: 30px;
-  padding-right: 50px;
+  padding-right: 80px;
 }
 .containerNewTopicQuestionAnswer__textpartForm {
   position: relative;
@@ -35,18 +35,19 @@
   width: 20px;
   height: 20px;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 3px;
+  right: -12px;
   background: url("../card/img/edit-light.png");
 }
 .containerNewTopicQuestionAnswer__textpartForm input {
-  background: none;
+  background: #dcebf1;
   outline: none;
   color: #777;
   border: none;
   width: 100%;
   font-size: 18px;
-  padding: 10px;
+  padding: 5px 10px;
+  font-size: 13px;
   font-weight: 100;
   border: 1px solid transparent;
   -webkit-transition: all 300ms ease-in-out;
@@ -54,16 +55,16 @@
   -ms-transition: all 300ms ease-in-out;
   -o-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
+  border-radius: 3px!important;
 }
 .containerNewTopicQuestionAnswer__textpartForm input:focus {
   font-weight: 100;
   color: #5f5e5e;
   background: #fff url('../card/img/backgroundLine.png');
-  border: 1px solid #c7c7c7;
+  /*border: 1px solid #c7c7c7;*/
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
   -webkit-transition: all 300ms ease-in-out;
   -moz-transition: all 300ms ease-in-out;
   -ms-transition: all 300ms ease-in-out;
@@ -73,7 +74,7 @@
 .containerNewTopicQuestionAnswer__toggleEditButton {
   position: absolute;
   right: 15px;
-  top: 19px;
+  top: 11px;
   font-size: 13px;
   cursor: pointer;
   background: #4a665e;
@@ -84,6 +85,7 @@
 .containerNewTopicQuestionAnswer__toggleEditButton p {
   float: left;
   padding-right: 10px;
+  margin: 0;
 }
 .containerNewTopicQuestionAnswer__dropPlus {
   float: right;
@@ -93,11 +95,12 @@
 }
 .containerNewTopicQuestionAnswer__input-containerForm  input {
   margin-bottom: 10px;
+  font-family: Arial, sans-serif;
 }
 .containerNewTopicQuestionAnswer__addAnswer {
   padding: 10px;
   width: 100%;
-  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 18px;
   font-weight: 400;
   color: #5f5e5e;
@@ -143,4 +146,69 @@
 }
 .hidden {
   display: none;
+}
+.difficulty  ul {
+  list-style: none;
+}
+
+.difficulty ul li {
+  display: inline;
+  vertical-align: middle;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding: 10px!important;
+  font-size: 13px;
+  font-weight: 100;
+  font-family: Arial, sans-serif;
+}
+
+.difficulty ul li label {
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+}
+
+.difficulty ul li input {
+  margin-right: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.correct {
+  cursor: pointer;
+}
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+.checkCorrectAnswer {
+  float: left;
+  padding-top: 5px;
+}
+.singleQuestionForm .inputMain {
+  width: 80%!important;
+  font-weight: 100;
+  padding: 5px 10px;
+}
+.checkCorrectAnswer p {
+  font-size: 13px;
+  padding: 2px 20px 0 5px;
+  float: right;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.buttonDelete {
+  position: relative;
+}
+.buttonDelete:after {
+  position: absolute;
+  content: '';
+  width: 24px;
+  height: 24px;
+  background: url('../card/img/buttonClose.png.png');
+  top: -40px;
+  right: 0px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.buttonDelete:hover:after {
+  opacity: 1;
 }
