@@ -1,56 +1,31 @@
-import template from "./topic.jade";
+import template from "./card.jade";
 
-const defaultCard = {
-	name: "Sample topic",
-	cards: [
-		{
-			request: "Is this a questio?",
-			responses: [
-				{
-					text: "yes",
-					isRight: true,
-				},
-				{
-					text: "no",
-					isRight: false,
-				},
-				{
-					text: "maybe",
-					isRight: true,
-				},
-			],
-			multivariant: true,
-			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
-			rightAnswers: [0, 2],
-		},
-		{
-			request: "Wanna get high?",
-			responses: [
-				{
-					text: "yes",
-					isRight: false,
-				},
-				{
-					text: "sure",
-					isRight: true,
-				},
-				{
-					text: "why not",
-					isRight: false,
-				},
-			],
-
-			multivariant: false,
-			reward: 2,
-			rightAnswers: [0],
-		},
-	],
-};
-
-const defautCardResponse = {
+const defaultCardResponse = {
 	text: "",
 	isRight: false,
 };
+
+const defaultCard = {
+	id: 0,
+	question: "Is this a questio?",
+	responses: [
+		{
+			text: "yes",
+			isRight: true,
+		},
+		{
+			text: "no",
+			isRight: false,
+		},
+		{
+			text: "maybe",
+			isRight: true,
+		},
+	],
+	reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
+	rightAnswers: [0, 2],
+};
+
 
 /**
  * @class Card
@@ -75,7 +50,7 @@ export default class Card {
 	 * Generate HTML
 	 */
 	render() {
-		this.el.innerHTML = this._temlate(this.data);
+		this.el.innerHTML = this._temlate(this.getData());
 	}
 
 	/**
@@ -96,36 +71,49 @@ export default class Card {
 		const card = target.closest("li");
 
 		switch (target.dataset.action) {
-		case "showVersions" :
-			this._showVersions(card);
-			break;
-		case "addVersion" :
-			this.addVersion(card);
-			break;
-		case "delete" :
-			this._deleteVersion(card, target);
-			break;
-		case "toggleRightVersion" :
-			this._toggleRightVersion(target);
-			break;
-		default :
-			return;
+			case "showVersions" :
+				this._showVersions(target);
+				break;
+			case "addVersion" :
+				this.addVersion(card);
+				break;
+			case "delete" :
+				this._deleteVersion(card, target);
+				break;
+			case "toggleRightVersion" :
+				this._toggleRightVersion(target);
+				break;
+			default :
+				return;
 		}
 	}
 
-	_showVersions(item) {
-		const versions = item.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
-		const indicator = item.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
+	_showVersions() {
+		//  тоглим класс на вариантах ответа
+		const versions = this.el.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
 		versions.classList.toggle("hidden");
+
+		// меняем индикатор: плюс - если варианты раскрыты, минус - если закрыты
+		const indicator = this.el.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
 		indicator.innerHTML = (indicator.innerHTML === "+") ? "-" : "+";
 	}
 
 
-	addVersion(card) {
+	addVersion() {
+		// пересохраняю карту
+		// TODO заменить на try...catch
+		const data = this.getData();
+		data.responses.push(defaultCardResponse);
+		if (!this.setData(data)) {
+			return;
+		}
+
 		// клонирую последнюю версию
-		const versions = card.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput");
+		const card = this.el;
+		const versions = [...card.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput")];
 		const lastVersion = versions[versions.length - 1];
 		const newVersion = lastVersion.cloneNode(true);
+
 
 		// обнуляю все инпуты
 		const inputs = newVersion.getElementsByTagName("input");
@@ -136,11 +124,6 @@ export default class Card {
 
 		// прикрепляю новую версию после последней
 		lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
-
-		// TODO пересохраняю карту
-		const data = this.getData();
-		const id = card.dataset.id;
-		data.cards[id].responses.push(defautCardResponse);
 	}
 
 	_deleteVersion(card, target) {
@@ -181,6 +164,7 @@ export default class Card {
 	 */
 	setData(data) {
 		this.data = data;
+		return this.data
 	}
 
 	/**

@@ -1,52 +1,3 @@
-<!DOCTYPE html>
-mixin renderCard(card, index)
-    li(data-id= index)
-        .containerNewTopicQuestionAnswer__title
-            span.containerNewTopicQuestionAnswer__number 1
-            article.containerNewTopicQuestionAnswer__textpart
-                form(action="").containerNewTopicQuestionAnswer__textpartForm
-                    input(type="text" value= card.request placeholder="Введите вопрос")
-            .containerNewTopicQuestionAnswer__toggleEditButton
-                p(data-action="showVersions") Edit
-                .containerNewTopicQuestionAnswer__dropPlus +
-        article.containerNewTopicQuestionAnswer__toggleEditPart.cf.hidden
-            .containerNewTopicQuestionAnswer__input-container.col-12.cf
-                .containerNewTopicQuestionAnswer__input-containerForm
-                    each response, versionId in card.responses
-                        .containerNewTopicQuestionAnswer__addNewInput.col-12.cf
-                            form(action="" data-id= index data-versionId= versionId).singleQuestionForm
-                                .checkCorrectAnswer
-                                    p Правильный
-                                    input(type="checkbox" checked= response.isRight data-action="toggleRightVersion" data-id= index data-versionId= versionId).correct
-                                input(type="text" data-id= versionId value= response.text placeholder="Введите вариант ответа").inputMain
-                                .buttonDelete(data-action= 'delete')
-
-
-
-                    .col-12.cf
-                        input(type="button" value="Добавить ответ" data-action="addVersion").containerNewTopicQuestionAnswer__addAnswer
-                    .col-12.cf
-                        .col-10.cf
-                            #svg
-                                section
-                                    form(autocomplete="off").ac-custom.ac-radio.ac-circle.difficulty
-                                        ul
-                                            li
-                                                input(name="r4" type="radio")#r11
-                                                laber(for="r11") Сложность 1
-                                            li
-                                                input(name="r5" type="radio")#r12
-                                                laber(for="r12") Сложность 2
-                                            li
-                                                input(name="r6" type="radio")#r13
-                                                laber(for="r13") Сложность 3
-
-                        .col-1.cf
-                            .filterOptions
-
-
-
-
 html(lang="en")
 head
     meta(charset="UTF-8")
@@ -55,7 +6,7 @@ head
     //- link(rel="stylesheet" href="../temporary_files/css/style.css")
     //- link(rel="stylesheet" href="../temporary_files/css/component.css")
     link(rel="stylesheet", href="../source/components/topic/topic.css")
-    link(rel="stylesheet", href="../source/components/card/card.css")
+    //link(rel="stylesheet", href="../source/components/card/card.css")
     title Creating New Topics
 body
     .app
@@ -74,9 +25,8 @@ body
                 .containerNewTopicQuestionAnswer.col-10
                     .containerNewTopicQuestionAnswer__question-answer-container.toggle
                         ol
-                            // ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-                            each card, index in cards
-                                +renderCard(card, index)
+                            // ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##
+
                         button.addCard add card
                 // Sidebar Analytics
                 .sidebarAnalytics.col-2.cf
