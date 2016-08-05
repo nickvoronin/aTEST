@@ -84,10 +84,14 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
+	//- link(rel="stylesheet" href="../temporary_files/css/normalize.css")
+	//- link(rel="stylesheet" href="../temporary_files/css/style.css")
+	// - link(rel="stylesheet" href="../temporary_files/css/component.css")
+	
 	var defaultCard = {
 		name: "Sample topic",
 		cards: [{
-			request: "Is this a question?",
+			request: "Is this a questio?",
 			responses: [{
 				text: "yes",
 				isRight: true
@@ -353,7 +357,7 @@
 	
 	buf.push("<div class=\"col-12 cf\"><input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"containerNewTopicQuestionAnswer__addAnswer\"></div><div class=\"col-12 cf\"><div class=\"col-10 cf\"><div id=\"svg\"><section><form autocomplete=\"off\" class=\"ac-custom ac-radio ac-circle difficulty\"><ul><li><input name=\"r4\" type=\"radio\" id=\"r11\"><laber for=\"r11\">Сложность 1</laber></li><li><input name=\"r5\" type=\"radio\" id=\"r12\"><laber for=\"r12\">Сложность 2</laber></li><li><input name=\"r6\" type=\"radio\" id=\"r13\"><laber for=\"r13\">Сложность 3</laber></li></ul></form></section></div></div><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></div></div></div></article></li>");
 	};
-	buf.push("<html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/style.css\"><link rel=\"stylesheet\" href=\"../temporary_files/css/component.css\"><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##-->");
+	buf.push("<html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## <li> ## ## ## ## ## ## ## ## ## ## ## ## ## ##-->");
 	// iterate cards
 	;(function(){
 	  var $$obj = cards;

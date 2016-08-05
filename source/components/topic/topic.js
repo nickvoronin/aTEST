@@ -1,10 +1,15 @@
 import template from "./topic.jade";
 
+
+    //- link(rel="stylesheet" href="../temporary_files/css/normalize.css")
+    //- link(rel="stylesheet" href="../temporary_files/css/style.css")
+    // - link(rel="stylesheet" href="../temporary_files/css/component.css")
+
 const defaultCard = {
 	name: "Sample topic",
 	cards: [
 		{
-			request: "Is this a question?",
+			request: "Is this a questio?",
 			responses: [
 				{
 					text: "yes",
