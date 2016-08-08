@@ -73,10 +73,10 @@ export default class Card {
 				this._showVersions(target);
 				break;
 			case "addVersion" :
-				this.addVersion(card);
+				this.addVersion(target);
 				break;
 			case "delete" :
-				this._deleteVersion(card, target);
+				this._deleteVersion(target);
 				break;
 			case "toggleRightVersion" :
 				this._toggleRightVersion(target);
@@ -88,11 +88,11 @@ export default class Card {
 
 	_showVersions() {
 		//  тоглим класс на вариантах ответа
-		const versions = this.el.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
+		const versions = this.el.querySelector(".card__answers");
 		versions.classList.toggle("hidden");
 
 		// меняем индикатор: плюс - если варианты раскрыты, минус - если закрыты
-		const indicator = this.el.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
+		const indicator = this.el.querySelector(".card__edit_indicator");
 		indicator.innerHTML = (indicator.innerHTML === "+") ? "-" : "+";
 	}
 
@@ -124,8 +124,8 @@ export default class Card {
 		lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
 	}
 
-	_deleteVersion(target) {
-		const versionId = target.closest("[data-versionid]").dataset.versionid;
+	_deleteVersion(target, id = target.parentElement.dataset.versionid) {
+		//const id = target.parentElement.dataset.versionid;
 		const data = this.getData();
 
 		// Отменяем операцию, если число версий после удаления будет меньше лимита
@@ -136,7 +136,7 @@ export default class Card {
 		}
 
 		// в данных карточки удаляем вариант ответа
-		data.responses.splice(versionId, 1);
+		data.responses.splice(id, 1);
 
 		// обновляем данные
 		this.setData(data);
