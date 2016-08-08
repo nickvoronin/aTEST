@@ -7,19 +7,15 @@ const defaultCardResponse = {
 
 const defaultCard = {
 	id: 0,
-	question: "Is this a questio?",
+	question: "",
 	responses: [
 		{
-			text: "yes",
-			isRight: true,
-		},
-		{
-			text: "no",
+			text: "",
 			isRight: false,
 		},
 		{
-			text: "maybe",
-			isRight: true,
+			text: "",
+			isRight: false,
 		},
 	],
 	reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
@@ -40,8 +36,10 @@ export default class Card {
 		this.el = options.el;
 		this.data = options.data || defaultCard;
 		this._temlate = template;
+		this._MINIMUM_VERSIONS_ALLOWED = 2;
 
 		this.setData(this.data);
+
 		this.render();
 		this._initEvents();
 	}
@@ -50,7 +48,8 @@ export default class Card {
 	 * Generate HTML
 	 */
 	render() {
-		this.el.innerHTML = this._temlate(this.getData());
+		const data = this.getData();
+		this.el.innerHTML = this._temlate(data);
 	}
 
 	/**
@@ -68,20 +67,19 @@ export default class Card {
 	 */
 	_onClick(event) {
 		const target = event.target;
-		const card = target.closest("li");
 
 		switch (target.dataset.action) {
 			case "showVersions" :
-				this._showVersions(target);
+				this._showVersions();
 				break;
 			case "addVersion" :
-				this.addVersion(card);
+				this.addVersion();
 				break;
 			case "delete" :
-				this._deleteVersion(card, target);
+				this._deleteVersion(target);
 				break;
 			case "toggleRightVersion" :
-				this._toggleRightVersion(target);
+				this._toggleRightVersion();
 				break;
 			default :
 				return;
@@ -126,49 +124,49 @@ export default class Card {
 		lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
 	}
 
-	_deleteVersion(card, target) {
-		const minimumVersionsAllowed = 2;
-
-		const form = target.parentElement;
-		const id = form.dataset.id;
-		const versionId = form.dataset.versionid;
+	_deleteVersion(target) {
+		const versionId = target.closest("[data-versionid]").dataset.versionid;
 		const data = this.getData();
 
-		const t1 = data.cards[id].responses.length;
-
-		if (t1 <= minimumVersionsAllowed) {
+		// Отменяем операцию, если число версий после удаления будет меньше лимита
+		const versionsAmount = data.responses.length;
+		if (versionsAmount <= this._MINIMUM_VERSIONS_ALLOWED) {
 			// TODO сделать визуальное оповещение о том, что операцию выполнить невозможно
 			return;
 		}
 
-		data.cards[id].responses.splice(versionId, 1); // в данных карточки удаляем вариант ответа
-		this.setData(data); // обновляем данные
+		// в данных карточки удаляем вариант ответа
+		data.responses.splice(versionId, 1);
+
+		// обновляем данные
+		this.setData(data);
 
 		// удаляем версию ответа из DOM
-		const version = target.closest(".singleQuestionForm");
-		version.remove();
+		target.closest(".containerNewTopicQuestionAnswer__addNewInput").remove();
+		// TODO обновить индексы у версий ответа
 	}
+
 
 	_toggleRightVersion(target) {
 		const data = this.getData();
-		const id = target.dataset.id;
-		const versionId = target.dataset.versionid;
-		data.cards[id].responses[versionId].isRight = target.checked;
+		const versionId = target.closest("[data-versionid]").dataset.versionid;
+
+		data.responses[versionId].isRight = target.checked;
 
 		this.setData(data);
 	}
 
 	/**
-	 * Set topic data
-	 * @param data
+	 * Set card data
+	 * @param {Object} Card options
 	 */
 	setData(data) {
 		this.data = data;
-		return this.data
+		return this.data;
 	}
 
 	/**
-	 * Get topic data
+	 * Get card data
 	 * @returns {*|{name: string, cards: *[]}}
 	 */
 	getData() {

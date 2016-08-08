@@ -50,13 +50,9 @@
 	
 	var _topic2 = _interopRequireDefault(_topic);
 	
-	var _model = __webpack_require__(5);
+	var _model = __webpack_require__(7);
 	
 	var _model2 = _interopRequireDefault(_model);
-	
-	var _card = __webpack_require__(6);
-	
-	var _card2 = _interopRequireDefault(_card);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -64,7 +60,7 @@
 		el: document.querySelector(".card")
 	};
 	
-	var card = new _card2.default(topicOptions);
+	var card = new _topic2.default(topicOptions);
 	var model = new _model2.default();
 	model.fetch();
 
@@ -84,14 +80,19 @@
 	
 	var _topic2 = _interopRequireDefault(_topic);
 	
+	var _card = __webpack_require__(5);
+	
+	var _card2 = _interopRequireDefault(_card);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var defaultCard = {
+	var defaultData = {
 		name: "Sample topic",
 		cards: [{
-			request: "Is this a questio?",
+			id: 0,
+			question: "Is this a question?",
 			responses: [{
 				text: "yes",
 				isRight: true
@@ -102,11 +103,11 @@
 				text: "maybe",
 				isRight: true
 			}],
-			multivariant: true,
 			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
 			rightAnswers: [0, 2]
 		}, {
-			request: "Wanna get high?",
+			id: 1,
+			question: "Wanna get high?",
 			responses: [{
 				text: "yes",
 				isRight: false
@@ -117,16 +118,9 @@
 				text: "why not",
 				isRight: false
 			}],
-	
-			multivariant: false,
 			reward: 2,
 			rightAnswers: [0]
 		}]
-	};
-	
-	var defautCardResponse = {
-		text: "",
-		isRight: false
 	};
 	
 	/**
@@ -134,17 +128,18 @@
 	 * Card with questions and answers
 	 */
 	
-	var Card = function () {
+	var Topic = function () {
 		/**
 	  *
 	  * @param {Object} options
 	  */
-		function Card(options) {
-			_classCallCheck(this, Card);
+		function Topic(options) {
+			_classCallCheck(this, Topic);
 	
 			this.el = options.el;
-			this.data = options.data || defaultCard;
+			this.data = options.data || defaultData;
 			this._temlate = _topic2.default;
+			this.cards = [];
 	
 			this.setData(this.data);
 			this.render();
@@ -152,22 +147,12 @@
 		}
 	
 		/**
-	  * Generate HTML
+	  * Init events listening
+	  * @private
 	  */
 	
 	
-		_createClass(Card, [{
-			key: "render",
-			value: function render() {
-				this.el.innerHTML = this._temlate(this.data);
-			}
-	
-			/**
-	   * Init events listening
-	   * @private
-	   */
-	
-		}, {
+		_createClass(Topic, [{
 			key: "_initEvents",
 			value: function _initEvents() {
 				this.el.addEventListener("click", this._onClick.bind(this));
@@ -183,56 +168,39 @@
 			key: "_onClick",
 			value: function _onClick(event) {
 				var target = event.target;
-				var card = target.closest("li");
 	
 				switch (target.dataset.action) {
-					case "showVersions":
-						this._showVersions(card);
-						break;
-					case "addVersion":
-						this.addVersion(card);
-						break;
-					case "delete":
-						this._deleteVersion(card, target);
-						break;
-					case "toggleRightVersion":
-						this._toggleRightVersion(target);
+					case "addcard":
+						this.addCard();
 						break;
 					default:
 						return;
 				}
 			}
-		}, {
-			key: "_showVersions",
-			value: function _showVersions(item) {
-				var versions = item.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
-				var indicator = item.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
-				versions.classList.toggle("hidden");
-				indicator.innerHTML = indicator.innerHTML === "+" ? "-" : "+";
-			}
-		}, {
-			key: "addVersion",
-			value: function addVersion(card) {
-				// клонирую последнюю версию
-				var versions = card.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput");
-				var lastVersion = versions[versions.length - 1];
-				var newVersion = lastVersion.cloneNode(true);
 	
-				// обнуляю все инпуты
-				var inputs = newVersion.getElementsByTagName("input");
+			/**
+	   * Generate HTML
+	   */
+	
+		}, {
+			key: "render",
+			value: function render() {
+				var data = this.getData();
+	
+				// render topic body
+				this.el.innerHTML = this._temlate(data);
+	
+				// render question cards
 				var _iteratorNormalCompletion = true;
 				var _didIteratorError = false;
 				var _iteratorError = undefined;
 	
 				try {
-					for (var _iterator = inputs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-						var input = _step.value;
+					for (var _iterator = data.cards[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+						var card = _step.value;
 	
-						if (input.checked) input.checked = false;
-						if (input.value) input.value = "";
+						this.renderCard(card);
 					}
-	
-					// прикрепляю новую версию после последней
 				} catch (err) {
 					_didIteratorError = true;
 					_iteratorError = err;
@@ -247,47 +215,22 @@
 						}
 					}
 				}
-	
-				lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
-	
-				// TODO пересохраняю карту
-				var data = this.getData();
-				var id = card.dataset.id;
-				data.cards[id].responses.push(defautCardResponse);
 			}
 		}, {
-			key: "_deleteVersion",
-			value: function _deleteVersion(card, target) {
-				var minimumVersionsAllowed = 2;
-	
-				var form = target.parentElement;
-				var id = form.dataset.id;
-				var versionId = form.dataset.versionid;
-				var data = this.getData();
-	
-				var t1 = data.cards[id].responses.length;
-	
-				if (t1 <= minimumVersionsAllowed) {
-					// TODO сделать визуальное оповещение о том, что операцию выполнить невозможно
-					return;
-				}
-	
-				data.cards[id].responses.splice(versionId, 1); // в данных карточки удаляем вариант ответа
-				this.setData(data); // обновляем данные
-	
-				// удаляем версию ответа из DOM
-				var version = target.closest(".singleQuestionForm");
-				version.remove();
+			key: "renderCard",
+			value: function renderCard(data) {
+				var el = document.createElement("li");
+				this.el.querySelector("ol").appendChild(el);
+				var card = new _card2.default({
+					el: el,
+					data: data
+				});
 			}
 		}, {
-			key: "_toggleRightVersion",
-			value: function _toggleRightVersion(target) {
-				var data = this.getData();
-				var id = target.dataset.id;
-				var versionId = target.dataset.versionid;
-				data.cards[id].responses[versionId].isRight = target.checked;
-	
-				this.setData(data);
+			key: "addCard",
+			value: function addCard() {
+				// TODO update data
+				this.renderCard();
 			}
 	
 			/**
@@ -313,10 +256,10 @@
 			}
 		}]);
 	
-		return Card;
+		return Topic;
 	}();
 	
-	exports.default = Card;
+	exports.default = Topic;
 
 /***/ },
 /* 2 */
@@ -329,7 +272,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 	;var locals_for_with = (locals || {});(function (name) {
-	buf.push("<!DOCTYPE html><html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><!--link(rel=\"stylesheet\", href=\"../source/components/card/card.css\")--><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--></ol><button class=\"addCard\">add card</button></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined));;return buf.join("");
+	buf.push("<!DOCTYPE html><html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><!--link(rel=\"stylesheet\", href=\"../source/components/card/card.css\")--><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--></ol><button data-action=\"addcard\" class=\"addCard\">add card</button></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined));;return buf.join("");
 	}
 
 /***/ },
@@ -585,6 +528,282 @@
 
 /***/ },
 /* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _card = __webpack_require__(6);
+	
+	var _card2 = _interopRequireDefault(_card);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var defaultCardResponse = {
+		text: "",
+		isRight: false
+	};
+	
+	var defaultCard = {
+		id: 0,
+		question: "",
+		responses: [{
+			text: "",
+			isRight: false
+		}, {
+			text: "",
+			isRight: false
+		}],
+		reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
+		rightAnswers: [0, 2]
+	};
+	
+	/**
+	 * @class Card
+	 * Card with questions and answers
+	 */
+	
+	var Card = function () {
+		/**
+	  *
+	  * @param {Object} options
+	  */
+		function Card(options) {
+			_classCallCheck(this, Card);
+	
+			this.el = options.el;
+			this.data = options.data || defaultCard;
+			this._temlate = _card2.default;
+			this._MINIMUM_VERSIONS_ALLOWED = 2;
+	
+			this.setData(this.data);
+	
+			this.render();
+			this._initEvents();
+		}
+	
+		/**
+	  * Generate HTML
+	  */
+	
+	
+		_createClass(Card, [{
+			key: "render",
+			value: function render() {
+				var data = this.getData();
+				this.el.innerHTML = this._temlate(data);
+			}
+	
+			/**
+	   * Init events listening
+	   * @private
+	   */
+	
+		}, {
+			key: "_initEvents",
+			value: function _initEvents() {
+				this.el.addEventListener("click", this._onClick.bind(this));
+			}
+	
+			/**
+	   * Handle click events
+	   * @param event
+	   * @private
+	   */
+	
+		}, {
+			key: "_onClick",
+			value: function _onClick(event) {
+				var target = event.target;
+	
+				switch (target.dataset.action) {
+					case "showVersions":
+						this._showVersions();
+						break;
+					case "addVersion":
+						this.addVersion();
+						break;
+					case "delete":
+						this._deleteVersion(target);
+						break;
+					case "toggleRightVersion":
+						this._toggleRightVersion();
+						break;
+					default:
+						return;
+				}
+			}
+		}, {
+			key: "_showVersions",
+			value: function _showVersions() {
+				//  тоглим класс на вариантах ответа
+				var versions = this.el.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
+				versions.classList.toggle("hidden");
+	
+				// меняем индикатор: плюс - если варианты раскрыты, минус - если закрыты
+				var indicator = this.el.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
+				indicator.innerHTML = indicator.innerHTML === "+" ? "-" : "+";
+			}
+		}, {
+			key: "addVersion",
+			value: function addVersion() {
+				// пересохраняю карту
+				// TODO заменить на try...catch
+				var data = this.getData();
+				data.responses.push(defaultCardResponse);
+				if (!this.setData(data)) {
+					return;
+				}
+	
+				// клонирую последнюю версию
+				var card = this.el;
+				var versions = [].concat(_toConsumableArray(card.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput")));
+				var lastVersion = versions[versions.length - 1];
+				var newVersion = lastVersion.cloneNode(true);
+	
+				// обнуляю все инпуты
+				var inputs = newVersion.getElementsByTagName("input");
+				var _iteratorNormalCompletion = true;
+				var _didIteratorError = false;
+				var _iteratorError = undefined;
+	
+				try {
+					for (var _iterator = inputs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+						var input = _step.value;
+	
+						if (input.checked) input.checked = false;
+						if (input.value) input.value = "";
+					}
+	
+					// прикрепляю новую версию после последней
+				} catch (err) {
+					_didIteratorError = true;
+					_iteratorError = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion && _iterator.return) {
+							_iterator.return();
+						}
+					} finally {
+						if (_didIteratorError) {
+							throw _iteratorError;
+						}
+					}
+				}
+	
+				lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
+			}
+		}, {
+			key: "_deleteVersion",
+			value: function _deleteVersion(target) {
+				var versionId = target.closest("[data-versionid]").dataset.versionid;
+				var data = this.getData();
+	
+				// Отменяем операцию, если число версий после удаления будет меньше лимита
+				var versionsAmount = data.responses.length;
+				if (versionsAmount <= this._MINIMUM_VERSIONS_ALLOWED) {
+					// TODO сделать визуальное оповещение о том, что операцию выполнить невозможно
+					return;
+				}
+	
+				// в данных карточки удаляем вариант ответа
+				data.responses.splice(versionId, 1);
+	
+				// обновляем данные
+				this.setData(data);
+	
+				// удаляем версию ответа из DOM
+				target.closest(".containerNewTopicQuestionAnswer__addNewInput").remove();
+				// TODO обновить индексы у версий ответа
+			}
+		}, {
+			key: "_toggleRightVersion",
+			value: function _toggleRightVersion(target) {
+				var data = this.getData();
+				var versionId = target.closest("[data-versionid]").dataset.versionid;
+	
+				data.responses[versionId].isRight = target.checked;
+	
+				this.setData(data);
+			}
+	
+			/**
+	   * Set card data
+	   * @param {Object} Card options
+	   */
+	
+		}, {
+			key: "setData",
+			value: function setData(data) {
+				this.data = data;
+				return this.data;
+			}
+	
+			/**
+	   * Get card data
+	   * @returns {*|{name: string, cards: *[]}}
+	   */
+	
+		}, {
+			key: "getData",
+			value: function getData() {
+				return this.data;
+			}
+		}]);
+	
+		return Card;
+	}();
+	
+	exports.default = Card;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(3);
+	
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	;var locals_for_with = (locals || {});(function (id, index, question, responses, undefined) {
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">" + (jade.escape(null == (jade_interp = id) ? "" : jade_interp)) + "</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p data-action=\"showVersions\">Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf hidden\"><div class=\"containerNewTopicQuestionAnswer__input-container col-12 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\">");
+	// iterate responses
+	;(function(){
+	  var $$obj = responses;
+	  if ('number' == typeof $$obj.length) {
+	
+	    for (var versionId = 0, $$l = $$obj.length; versionId < $$l; versionId++) {
+	      var response = $$obj[versionId];
+	
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"correct\"></div><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
+	    }
+	
+	  } else {
+	    var $$l = 0;
+	    for (var versionId in $$obj) {
+	      $$l++;      var response = $$obj[versionId];
+	
+	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"correct\"></div><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
+	    }
+	
+	  }
+	}).call(this);
+	
+	buf.push("<div class=\"col-12 cf\"><input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"containerNewTopicQuestionAnswer__addAnswer\"></div><div class=\"col-12 cf\"><div class=\"col-10 cf\"><section><form autocomplete=\"off\" class=\"ac-custom ac-radio ac-circle difficulty\"><ul><li><input name=\"radio-01\" type=\"radio\" id=\"r11\"><label for=\"r11\">Сложность 1</label></li><li><input name=\"radio-01\" type=\"radio\" id=\"r12\"><label for=\"r12\">Сложность 2</label></li><li><input name=\"radio-01\" type=\"radio\" id=\"r13\"><label for=\"r13\">Сложность 3</label></li></ul></form></section></div><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></div></div></div></article>");}.call(this,"id" in locals_for_with?locals_for_with.id:typeof id!=="undefined"?id:undefined,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
+	}
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -725,284 +944,6 @@
 	}();
 	
 	exports.default = Model;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _card = __webpack_require__(7);
-	
-	var _card2 = _interopRequireDefault(_card);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var defaultCardResponse = {
-		text: "",
-		isRight: false
-	};
-	
-	var defaultCard = {
-		id: 0,
-		question: "Is this a questio?",
-		responses: [{
-			text: "yes",
-			isRight: true
-		}, {
-			text: "no",
-			isRight: false
-		}, {
-			text: "maybe",
-			isRight: true
-		}],
-		reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
-		rightAnswers: [0, 2]
-	};
-	
-	/**
-	 * @class Card
-	 * Card with questions and answers
-	 */
-	
-	var Card = function () {
-		/**
-	  *
-	  * @param {Object} options
-	  */
-		function Card(options) {
-			_classCallCheck(this, Card);
-	
-			this.el = options.el;
-			this.data = options.data || defaultCard;
-			this._temlate = _card2.default;
-	
-			this.setData(this.data);
-			this.render();
-			this._initEvents();
-		}
-	
-		/**
-	  * Generate HTML
-	  */
-	
-	
-		_createClass(Card, [{
-			key: "render",
-			value: function render() {
-				this.el.innerHTML = this._temlate(this.getData());
-			}
-	
-			/**
-	   * Init events listening
-	   * @private
-	   */
-	
-		}, {
-			key: "_initEvents",
-			value: function _initEvents() {
-				this.el.addEventListener("click", this._onClick.bind(this));
-			}
-	
-			/**
-	   * Handle click events
-	   * @param event
-	   * @private
-	   */
-	
-		}, {
-			key: "_onClick",
-			value: function _onClick(event) {
-				var target = event.target;
-				var card = target.closest("li");
-	
-				switch (target.dataset.action) {
-					case "showVersions":
-						this._showVersions(target);
-						break;
-					case "addVersion":
-						this.addVersion(card);
-						break;
-					case "delete":
-						this._deleteVersion(card, target);
-						break;
-					case "toggleRightVersion":
-						this._toggleRightVersion(target);
-						break;
-					default:
-						return;
-				}
-			}
-		}, {
-			key: "_showVersions",
-			value: function _showVersions() {
-				//  тоглим класс на вариантах ответа
-				var versions = this.el.querySelector(".containerNewTopicQuestionAnswer__toggleEditPart");
-				versions.classList.toggle("hidden");
-	
-				// меняем индикатор: плюс - если варианты раскрыты, минус - если закрыты
-				var indicator = this.el.querySelector(".containerNewTopicQuestionAnswer__dropPlus");
-				indicator.innerHTML = indicator.innerHTML === "+" ? "-" : "+";
-			}
-		}, {
-			key: "addVersion",
-			value: function addVersion() {
-				// пересохраняю карту
-				// TODO заменить на try...catch
-				var data = this.getData();
-				data.responses.push(defaultCardResponse);
-				if (!this.setData(data)) {
-					return;
-				}
-	
-				// клонирую последнюю версию
-				var card = this.el;
-				var versions = [].concat(_toConsumableArray(card.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput")));
-				var lastVersion = versions[versions.length - 1];
-				var newVersion = lastVersion.cloneNode(true);
-	
-				// обнуляю все инпуты
-				var inputs = newVersion.getElementsByTagName("input");
-				var _iteratorNormalCompletion = true;
-				var _didIteratorError = false;
-				var _iteratorError = undefined;
-	
-				try {
-					for (var _iterator = inputs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-						var input = _step.value;
-	
-						if (input.checked) input.checked = false;
-						if (input.value) input.value = "";
-					}
-	
-					// прикрепляю новую версию после последней
-				} catch (err) {
-					_didIteratorError = true;
-					_iteratorError = err;
-				} finally {
-					try {
-						if (!_iteratorNormalCompletion && _iterator.return) {
-							_iterator.return();
-						}
-					} finally {
-						if (_didIteratorError) {
-							throw _iteratorError;
-						}
-					}
-				}
-	
-				lastVersion.parentNode.insertBefore(newVersion, lastVersion.nextSibling);
-			}
-		}, {
-			key: "_deleteVersion",
-			value: function _deleteVersion(card, target) {
-				var minimumVersionsAllowed = 2;
-	
-				var form = target.parentElement;
-				var id = form.dataset.id;
-				var versionId = form.dataset.versionid;
-				var data = this.getData();
-	
-				var t1 = data.cards[id].responses.length;
-	
-				if (t1 <= minimumVersionsAllowed) {
-					// TODO сделать визуальное оповещение о том, что операцию выполнить невозможно
-					return;
-				}
-	
-				data.cards[id].responses.splice(versionId, 1); // в данных карточки удаляем вариант ответа
-				this.setData(data); // обновляем данные
-	
-				// удаляем версию ответа из DOM
-				var version = target.closest(".singleQuestionForm");
-				version.remove();
-			}
-		}, {
-			key: "_toggleRightVersion",
-			value: function _toggleRightVersion(target) {
-				var data = this.getData();
-				var id = target.dataset.id;
-				var versionId = target.dataset.versionid;
-				data.cards[id].responses[versionId].isRight = target.checked;
-	
-				this.setData(data);
-			}
-	
-			/**
-	   * Set topic data
-	   * @param data
-	   */
-	
-		}, {
-			key: "setData",
-			value: function setData(data) {
-				this.data = data;
-				return this.data;
-			}
-	
-			/**
-	   * Get topic data
-	   * @returns {*|{name: string, cards: *[]}}
-	   */
-	
-		}, {
-			key: "getData",
-			value: function getData() {
-				return this.data;
-			}
-		}]);
-	
-		return Card;
-	}();
-	
-	exports.default = Card;
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var jade = __webpack_require__(3);
-	
-	module.exports = function template(locals) {
-	var buf = [];
-	var jade_mixins = {};
-	var jade_interp;
-	;var locals_for_with = (locals || {});(function (index, question, responses, undefined) {
-	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><li" + (jade.attr("data-id", index, true, true)) + "><div class=\"containerNewTopicQuestionAnswer__title\"><span class=\"containerNewTopicQuestionAnswer__number\">1</span><article class=\"containerNewTopicQuestionAnswer__textpart\"><form action=\"\" class=\"containerNewTopicQuestionAnswer__textpartForm\"><input type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\"></form></article><div class=\"containerNewTopicQuestionAnswer__toggleEditButton\"><p data-action=\"showVersions\">Edit</p><div class=\"containerNewTopicQuestionAnswer__dropPlus\">+</div></div></div><article class=\"containerNewTopicQuestionAnswer__toggleEditPart cf hidden\"><div class=\"containerNewTopicQuestionAnswer__input-container col-12 cf\"><div class=\"containerNewTopicQuestionAnswer__input-containerForm\">");
-	// iterate responses
-	;(function(){
-	  var $$obj = responses;
-	  if ('number' == typeof $$obj.length) {
-	
-	    for (var versionId = 0, $$l = $$obj.length; versionId < $$l; versionId++) {
-	      var response = $$obj[versionId];
-	
-	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"correct\"></div><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
-	    }
-	
-	  } else {
-	    var $$l = 0;
-	    for (var versionId in $$obj) {
-	      $$l++;      var response = $$obj[versionId];
-	
-	buf.push("<div class=\"containerNewTopicQuestionAnswer__addNewInput col-12 cf\"><form action=\"\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"singleQuestionForm\"><div class=\"checkCorrectAnswer\"><p>Правильный</p><input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"correct\"></div><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></form></div>");
-	    }
-	
-	  }
-	}).call(this);
-	
-	buf.push("<div class=\"col-12 cf\"><input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"containerNewTopicQuestionAnswer__addAnswer\"></div><div class=\"col-12 cf\"><div class=\"col-10 cf\"><section><form autocomplete=\"off\" class=\"ac-custom ac-radio ac-circle difficulty\"><ul><li><input name=\"radio-01\" type=\"radio\" id=\"r11\"><label for=\"r11\">Сложность 1</label></li><li><input name=\"radio-01\" type=\"radio\" id=\"r12\"><label for=\"r12\">Сложность 2</label></li><li><input name=\"radio-01\" type=\"radio\" id=\"r13\"><label for=\"r13\">Сложность 3</label></li></ul></form></section></div><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></div></div></div></article></li>");}.call(this,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
-	}
 
 /***/ }
 /******/ ]);
