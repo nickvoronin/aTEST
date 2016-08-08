@@ -236,21 +236,21 @@ body {
 
 /* Creating New Topics ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
 
-.headerCreatingNewTopicsPage {
+.header {
   width: 100%;
   background-size: auto;
   background: #4a665e;
   background-image: url("img/txt.png");
   text-align: center;
 }
-.headerCreatingNewTopicsPage__headerTitle {
+.header__title {
   padding: 60px 0;
   font-size: 25px;
   color: #fff;
   font-weight: 100;
 }
 
-.creatingNewTopicsPageSection {
+.topic {
   padding-top: 40px;
 }
 .creatingNewTopicsPageSection__titleEdit {
@@ -268,7 +268,7 @@ body {
   right: 10px;
   background: url("../img/edit-dark.png");
 }
-.creatingNewTopicsPageSection__titleEditInput {
+.topic__name {
   background: none;
   outline: none;
   color: #8f8f8f;
@@ -289,7 +289,7 @@ body {
   -o-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
 }
-.creatingNewTopicsPageSection__titleEditInput:focus {
+.topic__name:focus {
   background: #fff url('../img/backgroundLine.png');
   border: 1px solid #c7c7c7;
   -webkit-transition: all 300ms ease-in-out;
@@ -298,22 +298,6 @@ body {
   -o-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
 }
-.containerNewTopicQuestionAnswer {
-  padding-right: 5px;
-}
-.containerNewTopicQuestionAnswer__question-answer-container {
-  background: #4a665e url("../card/img/backgroundLine.png");
-  border: 1px solid #c7c7c7;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 15px;
-  height: 400px;
-  overflow-x: auto;
-  box-sizing: border-box;
-  width: 100%;
-}
-
 .sidebarAnalytics {
   background: #4a665e url("../card/img/backgroundLine.png");
   border: 1px solid #c7c7c7;
@@ -327,6 +311,18 @@ body {
   color: #fff;
 }
 
+
+.topic__cards {
+  background: #4a665e url(../card/img/backgroundLine.png);
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 15px;
+  height: 400px;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
 
 
 

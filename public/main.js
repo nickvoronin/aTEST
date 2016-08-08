@@ -50,7 +50,7 @@
 	
 	var _topic2 = _interopRequireDefault(_topic);
 	
-	var _model = __webpack_require__(5);
+	var _model = __webpack_require__(7);
 	
 	var _model2 = _interopRequireDefault(_model);
 	
@@ -80,7 +80,7 @@
 	
 	var _topic2 = _interopRequireDefault(_topic);
 	
-	var _card = __webpack_require__(6);
+	var _card = __webpack_require__(5);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
@@ -272,7 +272,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 	;var locals_for_with = (locals || {});(function (name) {
-	buf.push("<!DOCTYPE html><html lang=\"en\"></html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><link rel=\"stylesheet\" href=\"../temporary_files/css/normalize.css\"><link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><!--link(rel=\"stylesheet\", href=\"../source/components/card/card.css\")--><title>Creating New Topics</title></head><body><div class=\"app\"><header class=\"headerCreatingNewTopicsPage\"><div class=\"wrapper\"><div class=\"headerCreatingNewTopicsPage__headerTitle\"><p>Создание Новой Темы</p></div></div></header><section class=\"creatingNewTopicsPageSection\"><div class=\"wrapper\"><!-- Input Редактирования / Название Темы--><div class=\"creatingNewTopicsPageSection__titleEdit\"><form method=\"post\" action=\"\" class=\"creatingNewTopicsPageSection__titleEditForm\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"creatingNewTopicsPageSection__titleEditInput\"></form></div><!-- Left Container New Topic Question Answer--><div class=\"containerNewTopicQuestionAnswer col-10\"><div class=\"containerNewTopicQuestionAnswer__question-answer-container toggle\"><ol><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--></ol><button data-action=\"addcard\" class=\"addCard\">add card</button></div></div><!-- Sidebar Analytics--><div class=\"sidebarAnalytics col-2 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div></div></section></div><!-- Application--><script src=\"../../../temporary_files/scripts/app.js\"></script><!-- Dependencies--><script src=\"../../../temporary_files/scripts/main.js\"></script><!-- Style--><script src=\"../../../temporary_files/scripts/modernizr.custom.js\"></script><script src=\"../../../temporary_files/scripts/svgcheckbx.js\"></script></body>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined));;return buf.join("");
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><header class=\"header\"><div class=\"header__title\"><p>Создание Новой Темы</p></div></header><section class=\"topic\"><div class=\"wrapper\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"topic__name\"><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><ol class=\"topic__cards toggle col-9\"></ol><!-- sidebar will render here--><div class=\"sidebarAnalytics col-3 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div><button data-action=\"addcard\" class=\"addCard\">add card</button></div></section>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined));;return buf.join("");
 	}
 
 /***/ },
@@ -528,149 +528,6 @@
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var BASE_URL = "index.php";
-	/**
-	 * @class Model
-	 */
-	
-	var Model = function () {
-		/**
-	  * Model constructor
-	  * @param options
-	  */
-		function Model() {
-			var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
-			_classCallCheck(this, Model);
-	
-			this.data = options.data || { field: "random data" };
-		}
-	
-		_createClass(Model, [{
-			key: "getData",
-			value: function getData() {
-				return this.data;
-			}
-		}, {
-			key: "setData",
-			value: function setData(data) {
-				this.data = data;
-			}
-		}, {
-			key: "encode",
-			value: function encode(data) {
-				return JSON.stringify(data);
-			}
-		}, {
-			key: "decode",
-			value: function decode(data) {
-				return JSON.parse(data);
-			}
-	
-			/**
-	   * Fetch data
-	   * @param resolve - Callback function
-	   * @returns {XMLHttpRequest} - Request object
-	   */
-	
-		}, {
-			key: "fetch",
-			value: function fetch(resolve) {
-				var _this = this;
-	
-				// TODO change fake url!!!
-				var fakeURL = "json.php";
-	
-				var fetchURL = "";
-				var req = this._makeRequest("GET", fakeURL);
-	
-				req.onreadystatechange = function () {
-					if (req.readyState !== 4) return;
-	
-					if (req.status !== 200) {
-						// TODO Handle Error
-						console.log(req);
-						console.error("Error: Fetching failed " + req.status + " bitch");
-					} else {
-						var data = _this.decode(req.responseText);
-						console.log("Data fecth: " + _typeof(req.responseText) + ": " + req.responseText);
-						console.log("Data fecth: " + data + ": " + data.user);
-						_this.setData(data);
-						// resolve(this.getData());
-					}
-				};
-	
-				req.send();
-	
-				return req;
-			}
-		}, {
-			key: "save",
-			value: function save(resolve) {
-				var _this2 = this;
-	
-				var saveURL = "";
-				var req = this._makeRequest("POST", saveURL);
-	
-				req.onreadystatechange = function () {
-					if (req.readyState !== 4) return;
-	
-					if (req.status !== 200) {
-						// TODO Handle Error
-						console.error("Error: Fetching failed  " + req.status + " bitch");
-					} else {
-						var data = _this2.decode(req.responseText);
-						console.log(data);
-						_this2.setData(data);
-						resolve(_this2.getData());
-					}
-				};
-	
-				req.send();
-	
-				return req;
-			}
-	
-			/**
-	   * Generate request
-	   * @param {String} - HTTP method
-	   * @param {String} Add suffixURL to base url
-	   * @returns {XMLHttpRequest}
-	   * @private
-	   */
-	
-		}, {
-			key: "_makeRequest",
-			value: function _makeRequest(method) {
-				var suffixURL = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
-	
-				var xhr = new XMLHttpRequest();
-				xhr.open(method, BASE_URL + suffixURL, true);
-				return xhr;
-			}
-		}]);
-	
-		return Model;
-	}();
-	
-	exports.default = Model;
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -681,7 +538,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _card = __webpack_require__(7);
+	var _card = __webpack_require__(6);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
@@ -909,7 +766,7 @@
 	exports.default = Card;
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var jade = __webpack_require__(3);
@@ -919,7 +776,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 	;var locals_for_with = (locals || {});(function (index, question, responses, undefined) {
-	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">1</span><input type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"showVersions\" class=\"card__header_edit\">Edit<span class=\"card__edit_indicator\">+</span></button></div><article class=\"card__answers hidden\">");
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">1</span><input type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"showVersions\" class=\"card__header_edit\">Edit<span class=\"card__edit_indicator\">+</span></button></div><fieldset class=\"card__answers hidden\">");
 	// iterate responses
 	;(function(){
 	  var $$obj = responses;
@@ -942,8 +799,151 @@
 	  }
 	}).call(this);
 	
-	buf.push("</article><input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"card__answers_add\"><fieldset class=\"card__difficulty\"><label class=\"card__difficulty_label\">Сложность 1<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label><label class=\"card__difficulty_label\">Сложность 2<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label><label class=\"card__difficulty_label\">Сложность 3<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label></fieldset><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></form>");}.call(this,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
+	buf.push("<input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"card__answers_add\"><fieldset class=\"card__difficulty\"><label class=\"card__difficulty_label\">Сложность 1<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label><label class=\"card__difficulty_label\">Сложность 2<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label><label class=\"card__difficulty_label\">Сложность 3<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label></fieldset></fieldset><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></form>");}.call(this,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
 	}
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var BASE_URL = "index.php";
+	/**
+	 * @class Model
+	 */
+	
+	var Model = function () {
+		/**
+	  * Model constructor
+	  * @param options
+	  */
+		function Model() {
+			var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+			_classCallCheck(this, Model);
+	
+			this.data = options.data || { field: "random data" };
+		}
+	
+		_createClass(Model, [{
+			key: "getData",
+			value: function getData() {
+				return this.data;
+			}
+		}, {
+			key: "setData",
+			value: function setData(data) {
+				this.data = data;
+			}
+		}, {
+			key: "encode",
+			value: function encode(data) {
+				return JSON.stringify(data);
+			}
+		}, {
+			key: "decode",
+			value: function decode(data) {
+				return JSON.parse(data);
+			}
+	
+			/**
+	   * Fetch data
+	   * @param resolve - Callback function
+	   * @returns {XMLHttpRequest} - Request object
+	   */
+	
+		}, {
+			key: "fetch",
+			value: function fetch(resolve) {
+				var _this = this;
+	
+				// TODO change fake url!!!
+				var fakeURL = "json.php";
+	
+				var fetchURL = "";
+				var req = this._makeRequest("GET", fakeURL);
+	
+				req.onreadystatechange = function () {
+					if (req.readyState !== 4) return;
+	
+					if (req.status !== 200) {
+						// TODO Handle Error
+						console.log(req);
+						console.error("Error: Fetching failed " + req.status + " bitch");
+					} else {
+						var data = _this.decode(req.responseText);
+						console.log("Data fecth: " + _typeof(req.responseText) + ": " + req.responseText);
+						console.log("Data fecth: " + data + ": " + data.user);
+						_this.setData(data);
+						// resolve(this.getData());
+					}
+				};
+	
+				req.send();
+	
+				return req;
+			}
+		}, {
+			key: "save",
+			value: function save(resolve) {
+				var _this2 = this;
+	
+				var saveURL = "";
+				var req = this._makeRequest("POST", saveURL);
+	
+				req.onreadystatechange = function () {
+					if (req.readyState !== 4) return;
+	
+					if (req.status !== 200) {
+						// TODO Handle Error
+						console.error("Error: Fetching failed  " + req.status + " bitch");
+					} else {
+						var data = _this2.decode(req.responseText);
+						console.log(data);
+						_this2.setData(data);
+						resolve(_this2.getData());
+					}
+				};
+	
+				req.send();
+	
+				return req;
+			}
+	
+			/**
+	   * Generate request
+	   * @param {String} - HTTP method
+	   * @param {String} Add suffixURL to base url
+	   * @returns {XMLHttpRequest}
+	   * @private
+	   */
+	
+		}, {
+			key: "_makeRequest",
+			value: function _makeRequest(method) {
+				var suffixURL = arguments.length <= 1 || arguments[1] === undefined ? "" : arguments[1];
+	
+				var xhr = new XMLHttpRequest();
+				xhr.open(method, BASE_URL + suffixURL, true);
+				return xhr;
+			}
+		}]);
+	
+		return Model;
+	}();
+	
+	exports.default = Model;
 
 /***/ }
 /******/ ]);
