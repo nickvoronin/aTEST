@@ -1,46 +1,33 @@
 link(rel="stylesheet", href="../source/components/card/card.css")
 
-.containerNewTopicQuestionAnswer__title
-    span.containerNewTopicQuestionAnswer__number=id
-    article.containerNewTopicQuestionAnswer__textpart
-        form(action="").containerNewTopicQuestionAnswer__textpartForm
-            input(type="text" value= question placeholder="Введите вопрос")
-    .containerNewTopicQuestionAnswer__toggleEditButton
-        p(data-action="showVersions") Edit
-        .containerNewTopicQuestionAnswer__dropPlus +
-article.containerNewTopicQuestionAnswer__toggleEditPart.cf.hidden
-    .containerNewTopicQuestionAnswer__input-container.col-12.cf
-        .containerNewTopicQuestionAnswer__input-containerForm
-            each response, versionId in responses
-                .containerNewTopicQuestionAnswer__addNewInput.col-12.cf
-                    form(action="" data-id= index data-versionId= versionId).singleQuestionForm
-                        .checkCorrectAnswer
-                            p Правильный
-                            input(type="checkbox" checked= response.isRight data-action="toggleRightVersion" data-id= index data-versionId= versionId).correct
-                        input(type="text" data-id= versionId value= response.text placeholder="Введите вариант ответа").inputMain
-                        .buttonDelete(data-action= 'delete')
+
+form(action="").card
+    .card__header
+        span.card__header_number 1
+        input(type="text" value= question placeholder="Введите вопрос").card__header_question
+        button(data-action="showVersions").card__header_edit Edit
+            span.card__edit_indicator +
+    article.card__answers.hidden
+        each response, versionId in responses
+            fieldset.card__response.col-12.cf
+                label Правильный
+                    input(type="checkbox" checked= response.isRight data-action="toggleRightVersion" data-id= index data-versionId= versionId).correct
+                input(type="text" data-id= versionId value= response.text placeholder="Введите вариант ответа").inputMain
+                .buttonDelete(data-action= 'delete')
 
 
+    input(type="button" value="Добавить ответ" data-action="addVersion").card__answers_add
+    fieldset.card__difficulty
 
-            .col-12.cf
-                input(type="button" value="Добавить ответ" data-action="addVersion").containerNewTopicQuestionAnswer__addAnswer
-            .col-12.cf
-                .col-10.cf
-                    section
-                        form(autocomplete="off").ac-custom.ac-radio.ac-circle.difficulty
-                            ul
-                                li
-                                    input(name="radio-01" type="radio")#r11
-                                    label(for="r11") Сложность 1
-                                li
-                                    input(name="radio-01" type="radio")#r12
-                                    label(for="r12") Сложность 2
-                                li
-                                    input(name="radio-01" type="radio")#r13
-                                    label(for="r13") Сложность 3
+        label.card__difficulty_label Сложность 1
+            input(name="radio-01" type="radio").card__difficulty_radio
+        label.card__difficulty_label Сложность 2
+            input(name="radio-01" type="radio").card__difficulty_radio
+        label.card__difficulty_label Сложность 3
+            input(name="radio-01" type="radio").card__difficulty_radio
 
-                .col-1.cf
-                    .filterOptions
+    .col-1.cf
+        .filterOptions
 
 
 

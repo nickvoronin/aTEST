@@ -1,45 +1,27 @@
+
 .card {
-  width: 80%;
-  margin: 0 auto;
+  float: left;
+  padding-top: 5px;
 }
-.card li {
-  list-style: none;
-  font-size: 16px;
-  position: relative;
-  padding: 10px 40px 10px 15px;
-  border-radius: 4px;
-  background: #c1d9e3;
-  color: #777;
-  margin-bottom: 5px;
+
+.card p {
+  font-size: 13px;
+  padding: 2px 20px 0 5px;
+  float: right;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
-.containerNewTopicQuestionAnswer__toggleEditPart {
-  padding: 10px 30px 0;
-}
-.containerNewTopicQuestionAnswer__toggleEditPart.open {
-  display: block!important;
-}
-.containerNewTopicQuestionAnswer__number {
+
+.card__header_number {
   float: left;
   padding-top: 5px;
   font-weight: 100;
 }
-.containerNewTopicQuestionAnswer__textpart {
+.card__header_question {
   padding-left: 30px;
   padding-right: 80px;
 }
-.containerNewTopicQuestionAnswer__textpartForm {
-  position: relative;
-}
-.containerNewTopicQuestionAnswer__textpartForm:hover:after {
-  content: '';
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 3px;
-  right: -12px;
-  background: url("../card/img/edit-light.png");
-}
-.containerNewTopicQuestionAnswer__textpartForm input {
+.card__header_question input {
   background: #dcebf1;
   outline: none;
   color: #777;
@@ -57,7 +39,7 @@
   transition: all 300ms ease-in-out;
   border-radius: 3px!important;
 }
-.containerNewTopicQuestionAnswer__textpartForm input:focus {
+.card__header_question input:focus {
   font-weight: 100;
   color: #5f5e5e;
   background: #fff url('../card/img/backgroundLine.png');
@@ -71,7 +53,7 @@
   -o-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
 }
-.containerNewTopicQuestionAnswer__toggleEditButton {
+.card__header_edit {
   position: absolute;
   right: 15px;
   top: 11px;
@@ -82,22 +64,10 @@
   border-radius: 2px;
   color: #fff;
 }
-.containerNewTopicQuestionAnswer__toggleEditButton p {
-  float: left;
-  padding-right: 10px;
-  margin: 0;
-}
-.containerNewTopicQuestionAnswer__dropPlus {
+.card__edit_indicator {
   float: right;
 }
-.containerNewTopicQuestionAnswer__input-container {
-  padding-left: 10px;
-}
-.containerNewTopicQuestionAnswer__input-containerForm  input {
-  margin-bottom: 10px;
-  font-family: Arial, sans-serif;
-}
-.containerNewTopicQuestionAnswer__addAnswer {
+.card__answers_add {
   padding: 10px;
   width: 100%;
   font-family: Arial, sans-serif;
@@ -114,7 +84,7 @@
   font-weight: 100;
   outline: none;
 }
-.containerNewTopicQuestionAnswer__addAnswer:hover {
+.card__answers_add:hover {
   background: #4a665e url('../card/img/backgroundLine.png');
   color: #eee!important;
 }
@@ -139,11 +109,8 @@
 .creatingNewTopicsPageSectionSaveButton:hover {
   background: #4a665e url('../card/img/backgroundLine.png');
 }
-.toggle .containerNewTopicQuestionAnswer__toggleEditPart {
-}
-.toggle.open .containerNewTopicQuestionAnswer__toggleEditPart {
-  display: block;
-}
+
+
 .hidden {
   display: none;
 }
@@ -178,22 +145,6 @@
 
 /* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
 
-.checkCorrectAnswer {
-  float: left;
-  padding-top: 5px;
-}
-.singleQuestionForm .inputMain {
-  width: 80%!important;
-  font-weight: 100;
-  padding: 5px 10px;
-}
-.checkCorrectAnswer p {
-  font-size: 13px;
-  padding: 2px 20px 0 5px;
-  float: right;
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
 .buttonDelete {
   position: relative;
 }
@@ -212,3 +163,40 @@
 .buttonDelete:hover:after {
   opacity: 1;
 }
+
+/* Cards ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+form {
+  list-style: none;
+  font-size: 16px;
+  position: relative;
+  padding: 10px 40px 10px 15px;
+  border-radius: 2px;
+  background: #c1d9e3;
+  color: #777;
+  margin-bottom: 5px;
+}
+form:before,
+form:after {
+  content: "";
+  display: table;
+}
+form:after {
+  clear: both;
+}
+.card__answers {
+  padding: 10px 30px 0;
+}
+.card__answers.open {
+  display: block!important;
+}
+.toggle.open .card__answers {
+  display: block;
+}
+.card__answers input {
+  margin-bottom: 10px;
+  font-family: Arial, sans-serif;
+}
+
+
+

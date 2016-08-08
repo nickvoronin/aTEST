@@ -2,7 +2,7 @@ import Topic from "../topic/topic.js";
 import Model from "../model/model.js";
 
 const topicOptions = {
-	el: document.querySelector(".card"),
+	el: document.querySelector(".app"),
 };
 
 const card = new Topic(topicOptions);
