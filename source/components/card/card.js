@@ -48,8 +48,7 @@ export default class Card {
 	 * Generate HTML
 	 */
 	render() {
-		const data = this.getData();
-		this.el.innerHTML = this._temlate(data);
+		this.el.innerHTML = this._temlate(this.getData());
 	}
 
 	/**
@@ -67,19 +66,20 @@ export default class Card {
 	 */
 	_onClick(event) {
 		const target = event.target;
+		const card = target.closest("li");
 
 		switch (target.dataset.action) {
 			case "showVersions" :
-				this._showVersions();
+				this._showVersions(target);
 				break;
 			case "addVersion" :
-				this.addVersion();
+				this.addVersion(card);
 				break;
 			case "delete" :
-				this._deleteVersion(target);
+				this._deleteVersion(card, target);
 				break;
 			case "toggleRightVersion" :
-				this._toggleRightVersion();
+				this._toggleRightVersion(target);
 				break;
 			default :
 				return;
@@ -108,7 +108,7 @@ export default class Card {
 
 		// клонирую последнюю версию
 		const card = this.el;
-		const versions = [...card.querySelectorAll(".containerNewTopicQuestionAnswer__addNewInput")];
+		const versions = [...card.querySelectorAll(".card__response")];
 		const lastVersion = versions[versions.length - 1];
 		const newVersion = lastVersion.cloneNode(true);
 
@@ -142,8 +142,8 @@ export default class Card {
 		this.setData(data);
 
 		// удаляем версию ответа из DOM
-		target.closest(".containerNewTopicQuestionAnswer__addNewInput").remove();
-		// TODO обновить индексы у версий ответа
+		const version = target.closest(".card__response");
+		version.remove();
 	}
 
 
