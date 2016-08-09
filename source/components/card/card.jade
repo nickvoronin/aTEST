@@ -1,30 +1,27 @@
 link(rel="stylesheet", href="../source/components/card/card.css")
 
 
-form(action="").card
+form(action="" tabindex=1).card
     .card__header
         span.card__header_number= id
-        input(type="text" value= question placeholder="Введите вопрос").card__header_question
-        button(data-action="showVersions" type="button").card__header_edit Edit
-            span.card__edit_indicator +
-    fieldset.card__answers.hidden
+        input(name="question" data-action="showVersions" type="text" value= question placeholder="Введите вопрос").card__header_question
+        button(data-action="toggleVersions" type="button").card__header_edit Edit
+            span(data-action="toggleVersions").card__edit_indicator +
+    fieldset(name="responses").card__answers
         each response, versionId in responses
-            fieldset(data-id= index data-versionId= versionId).card__response.col-12.cf
+            fieldset(name="response" data-id= index data-versionId= versionId).card__response.col-12.cf
                 label Правильный
-                    input(type="checkbox" checked= response.isRight data-action="toggleRightVersion" ).correct
-                input(type="text" data-id= versionId value= response.text placeholder="Введите вариант ответа").inputMain
+                    input(name="isRight" type="checkbox" checked= response.isRight data-action="toggleRightVersion" ).correct
+                input(name="text" type="text" data-id= versionId value= response.text placeholder="Введите вариант ответа").inputMain
                 .buttonDelete(data-action= 'delete')
 
 
         input(type="button" value="Добавить ответ" data-action="addVersion").card__answers_add
-        fieldset.card__difficulty
+        fieldset(name="reward").card__difficulty
+            each id in [0, 1, 2]
+                label.card__difficulty_label Сложность 1
+                    input(name="radio" type="radio" data-id= id).card__difficulty_radio
 
-            label.card__difficulty_label Сложность 1
-                input(name="radio-01" type="radio").card__difficulty_radio
-            label.card__difficulty_label Сложность 2
-                input(name="radio-01" type="radio").card__difficulty_radio
-            label.card__difficulty_label Сложность 3
-                input(name="radio-01" type="radio").card__difficulty_radio
 
     .col-1.cf
         .filterOptions

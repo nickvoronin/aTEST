@@ -563,8 +563,7 @@
 			text: "",
 			isRight: false
 		}],
-		reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
-		rightAnswers: [0, 2]
+		reward: 1
 	};
 	
 	/**
@@ -610,7 +609,8 @@
 		}, {
 			key: "_initEvents",
 			value: function _initEvents() {
-				this.el.addEventListener("click", this._onClick.bind(this));
+				//this.el.addEventListener("click", this._onClick.bind(this));
+				this.el.addEventListener("click", this._saveCard.bind(this));
 			}
 	
 			/**
@@ -629,6 +629,9 @@
 					case "showVersions":
 						this._showVersions(target);
 						break;
+					case "toggleVersions":
+						this._toggleVersions(target);
+						break;
 					case "addVersion":
 						this.addVersion(target);
 						break;
@@ -645,6 +648,17 @@
 		}, {
 			key: "_showVersions",
 			value: function _showVersions() {
+				//  убираем класс hidden на вариантах ответа
+				var versions = this.el.querySelector(".card__answers");
+				if (!versions.classList.remove("hidden")) return;
+	
+				// меняем индикатор: плюс - если варианты раскрыты, минус - если закрыты
+				var indicator = this.el.querySelector(".card__edit_indicator");
+				indicator.innerHTML = indicator.innerHTML === "+" ? "-" : "+";
+			}
+		}, {
+			key: "_toggleVersions",
+			value: function _toggleVersions() {
 				//  тоглим класс на вариантах ответа
 				var versions = this.el.querySelector(".card__answers");
 				versions.classList.toggle("hidden");
@@ -657,12 +671,10 @@
 			key: "addVersion",
 			value: function addVersion() {
 				// пересохраняю карту
-				// TODO заменить на try...catch
+				// TODO проверить, если операция проходит удачно
 				var data = this.getData();
 				data.responses.push(defaultCardResponse);
-				if (!this.setData(data)) {
-					return;
-				}
+				this.setData(data);
 	
 				// клонирую последнюю версию
 				var card = this.el;
@@ -737,6 +749,27 @@
 	
 				this.setData(data);
 			}
+		}, {
+			key: "_saveCard",
+			value: function _saveCard() {
+				var form = this.el.querySelector("form");
+	
+				var data = {
+					id: 0,
+					question: form.elements.question.value,
+					responses: Array.from(form.elements.response, function (response) {
+						return {
+							text: response.elements.text.value,
+							isRight: response.elements.isRight.checked
+						};
+					}),
+					reward: Array.from(form.elements.radio, function (radio) {
+						return radio.checked;
+					}).indexOf(true)
+				};
+	
+				this.setData(data);
+			}
 	
 			/**
 	   * Set card data
@@ -778,7 +811,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 	;var locals_for_with = (locals || {});(function (id, index, question, responses, undefined) {
-	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">" + (jade.escape(null == (jade_interp = id) ? "" : jade_interp)) + "</span><input type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"showVersions\" type=\"button\" class=\"card__header_edit\">Edit<span class=\"card__edit_indicator\">+</span></button></div><fieldset class=\"card__answers hidden\">");
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" tabindex=\"1\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">" + (jade.escape(null == (jade_interp = id) ? "" : jade_interp)) + "</span><input name=\"question\" data-action=\"showVersions\" type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"toggleVersions\" type=\"button\" class=\"card__header_edit\">Edit<span data-action=\"toggleVersions\" class=\"card__edit_indicator\">+</span></button></div><fieldset name=\"responses\" class=\"card__answers\">");
 	// iterate responses
 	;(function(){
 	  var $$obj = responses;
@@ -787,7 +820,7 @@
 	    for (var versionId = 0, $$l = $$obj.length; versionId < $$l; versionId++) {
 	      var response = $$obj[versionId];
 	
-	buf.push("<fieldset" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
+	buf.push("<fieldset name=\"response\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input name=\"isRight\" type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input name=\"text\" type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
 	    }
 	
 	  } else {
@@ -795,13 +828,36 @@
 	    for (var versionId in $$obj) {
 	      $$l++;      var response = $$obj[versionId];
 	
-	buf.push("<fieldset" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
+	buf.push("<fieldset name=\"response\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input name=\"isRight\" type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input name=\"text\" type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
 	    }
 	
 	  }
 	}).call(this);
 	
-	buf.push("<input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"card__answers_add\"><fieldset class=\"card__difficulty\"><label class=\"card__difficulty_label\">Сложность 1<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label><label class=\"card__difficulty_label\">Сложность 2<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label><label class=\"card__difficulty_label\">Сложность 3<input name=\"radio-01\" type=\"radio\" class=\"card__difficulty_radio\"></label></fieldset></fieldset><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></form>");}.call(this,"id" in locals_for_with?locals_for_with.id:typeof id!=="undefined"?id:undefined,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
+	buf.push("<input type=\"button\" value=\"Добавить ответ\" data-action=\"addVersion\" class=\"card__answers_add\"><fieldset name=\"reward\" class=\"card__difficulty\">");
+	// iterate [0, 1, 2]
+	;(function(){
+	  var $$obj = [0, 1, 2];
+	  if ('number' == typeof $$obj.length) {
+	
+	    for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
+	      var id = $$obj[$index];
+	
+	buf.push("<label class=\"card__difficulty_label\">Сложность 1<input name=\"radio\" type=\"radio\"" + (jade.attr("data-id", id, true, true)) + " class=\"card__difficulty_radio\"></label>");
+	    }
+	
+	  } else {
+	    var $$l = 0;
+	    for (var $index in $$obj) {
+	      $$l++;      var id = $$obj[$index];
+	
+	buf.push("<label class=\"card__difficulty_label\">Сложность 1<input name=\"radio\" type=\"radio\"" + (jade.attr("data-id", id, true, true)) + " class=\"card__difficulty_radio\"></label>");
+	    }
+	
+	  }
+	}).call(this);
+	
+	buf.push("</fieldset></fieldset><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></form>");}.call(this,"id" in locals_for_with?locals_for_with.id:typeof id!=="undefined"?id:undefined,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
 	}
 
 /***/ },

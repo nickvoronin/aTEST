@@ -18,8 +18,7 @@ const defaultCard = {
 			isRight: false,
 		},
 	],
-	reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
-	rightAnswers: [0, 2],
+	reward: 1,
 };
 
 
@@ -56,7 +55,8 @@ export default class Card {
 	 * @private
 	 */
 	_initEvents() {
-		this.el.addEventListener("click", this._onClick.bind(this));
+		//this.el.addEventListener("click", this._onClick.bind(this));
+		this.el.addEventListener("blur", this._saveCard.bind(this));
 	}
 
 	/**
@@ -66,11 +66,13 @@ export default class Card {
 	 */
 	_onClick(event) {
 		const target = event.target;
-		const card = target.closest("li");
 
 		switch (target.dataset.action) {
 			case "showVersions" :
 				this._showVersions(target);
+				break;
+			case "toggleVersions" :
+				this._toggleVersions(target);
 				break;
 			case "addVersion" :
 				this.addVersion(target);
@@ -87,6 +89,16 @@ export default class Card {
 	}
 
 	_showVersions() {
+		//  убираем класс hidden на вариантах ответа
+		const versions = this.el.querySelector(".card__answers");
+		if (!versions.classList.remove("hidden")) return;
+
+		// меняем индикатор: плюс - если варианты раскрыты, минус - если закрыты
+		const indicator = this.el.querySelector(".card__edit_indicator");
+		indicator.innerHTML = (indicator.innerHTML === "+") ? "-" : "+";
+	}
+
+	_toggleVersions() {
 		//  тоглим класс на вариантах ответа
 		const versions = this.el.querySelector(".card__answers");
 		versions.classList.toggle("hidden");
@@ -96,15 +108,12 @@ export default class Card {
 		indicator.innerHTML = (indicator.innerHTML === "+") ? "-" : "+";
 	}
 
-
 	addVersion() {
 		// пересохраняю карту
-		// TODO заменить на try...catch
+		// TODO проверить, если операция проходит удачно
 		const data = this.getData();
 		data.responses.push(defaultCardResponse);
-		if (!this.setData(data)) {
-			return;
-		}
+		this.setData(data);
 
 		// клонирую последнюю версию
 		const card = this.el;
@@ -152,6 +161,24 @@ export default class Card {
 		const versionId = target.closest("[data-versionid]").dataset.versionid;
 
 		data.responses[versionId].isRight = target.checked;
+
+		this.setData(data);
+	}
+
+	_saveCard() {
+		const form = this.el.querySelector("form");
+
+		const data = {
+			id: 0,
+			question: form.elements.question.value,
+			responses: Array.from(form.elements.response, response => {
+				return {
+					text: response.elements.text.value,
+					isRight: response.elements.isRight.checked,
+				};
+			}),
+			reward: Array.from(form.elements.radio, radio => radio.checked).indexOf(true),
+		};
 
 		this.setData(data);
 	}
