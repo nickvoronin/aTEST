@@ -609,8 +609,8 @@
 		}, {
 			key: "_initEvents",
 			value: function _initEvents() {
-				//this.el.addEventListener("click", this._onClick.bind(this));
-				this.el.addEventListener("click", this._saveCard.bind(this));
+				this.el.addEventListener("click", this._onClick.bind(this));
+				//this.el.addEventListener("blur", this._saveCard.bind(this));
 			}
 	
 			/**
@@ -623,7 +623,6 @@
 			key: "_onClick",
 			value: function _onClick(event) {
 				var target = event.target;
-				var card = target.closest("li");
 	
 				switch (target.dataset.action) {
 					case "showVersions":
@@ -811,7 +810,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 	;var locals_for_with = (locals || {});(function (id, index, question, responses, undefined) {
-	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" tabindex=\"1\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">" + (jade.escape(null == (jade_interp = id) ? "" : jade_interp)) + "</span><input name=\"question\" data-action=\"showVersions\" type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"toggleVersions\" type=\"button\" class=\"card__header_edit\">Edit<span data-action=\"toggleVersions\" class=\"card__edit_indicator\">+</span></button></div><fieldset name=\"responses\" class=\"card__answers\">");
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" tabindex=\"1\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">" + (jade.escape(null == (jade_interp = id) ? "" : jade_interp)) + "</span><input name=\"question\" data-action=\"showVersions\" type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"toggleVersions\" type=\"button\" class=\"card__header_edit\">Edit<span data-action=\"toggleVersions\" class=\"card__edit_indicator\">+</span></button></div><fieldset name=\"responses\" class=\"card__answers hidden\">");
 	// iterate responses
 	;(function(){
 	  var $$obj = responses;

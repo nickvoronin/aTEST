@@ -7,7 +7,7 @@ form(action="" tabindex=1).card
         input(name="question" data-action="showVersions" type="text" value= question placeholder="Введите вопрос").card__header_question
         button(data-action="toggleVersions" type="button").card__header_edit Edit
             span(data-action="toggleVersions").card__edit_indicator +
-    fieldset(name="responses").card__answers
+    fieldset(name="responses").card__answers.hidden
         each response, versionId in responses
             fieldset(name="response" data-id= index data-versionId= versionId).card__response.col-12.cf
                 label Правильный

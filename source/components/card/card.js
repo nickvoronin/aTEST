@@ -55,8 +55,8 @@ export default class Card {
 	 * @private
 	 */
 	_initEvents() {
-		//this.el.addEventListener("click", this._onClick.bind(this));
-		this.el.addEventListener("blur", this._saveCard.bind(this));
+		this.el.addEventListener("click", this._onClick.bind(this));
+		//this.el.addEventListener("blur", this._saveCard.bind(this));
 	}
 
 	/**
