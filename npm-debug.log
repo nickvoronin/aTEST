@@ -1,0 +1,118 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.14
+3 info using node@v0.10.25
+4 verbose node symlink /usr/bin/node
+5 verbose readDependencies using package.json deps
+6 verbose install where, deps [ '/var/www/html/PHPLESSONS/aTEST',
+6 verbose install   [ 'babel-core',
+6 verbose install     'babel-loader',
+6 verbose install     'babel-plugin-transform-es2015-modules-commonjs',
+6 verbose install     'babel-preset-es2015',
+6 verbose install     'css-loader',
+6 verbose install     'eslint',
+6 verbose install     'eslint-plugin-jsx-a11y',
+6 verbose install     'es6-loader',
+6 verbose install     'eslint-config-airbnb',
+6 verbose install     'eslint-plugin-import',
+6 verbose install     'eslint-plugin-promise',
+6 verbose install     'eslint-plugin-react',
+6 verbose install     'eslint-plugin-standard',
+6 verbose install     'jade',
+6 verbose install     'jade-loader',
+6 verbose install     'jshint',
+6 verbose install     'style-loader',
+6 verbose install     'webpack',
+6 verbose install     'webpack-dev-server' ] ]
+7 info preinstall @0.0.1
+8 warn package.json babel-preset-es2015@6.9.0 No README data
+9 warn package.json css-loader@0.23.1 No README data
+10 warn package.json eslint-plugin-react@5.2.2 No README data
+11 verbose readDependencies using package.json deps
+12 verbose already installed skipping babel-plugin-transform-es2015-modules-commonjs@^6.10.3 /var/www/html/PHPLESSONS/aTEST
+13 verbose already installed skipping babel-core@^6.10.4 /var/www/html/PHPLESSONS/aTEST
+14 verbose already installed skipping babel-loader@^6.2.4 /var/www/html/PHPLESSONS/aTEST
+15 verbose already installed skipping babel-preset-es2015@^6.9.0 /var/www/html/PHPLESSONS/aTEST
+16 verbose already installed skipping css-loader@^0.23.1 /var/www/html/PHPLESSONS/aTEST
+17 verbose already installed skipping eslint@^3.1.1 /var/www/html/PHPLESSONS/aTEST
+18 verbose already installed skipping eslint-plugin-jsx-a11y@^2.0.1 /var/www/html/PHPLESSONS/aTEST
+19 verbose already installed skipping eslint-config-airbnb@9.0.1 /var/www/html/PHPLESSONS/aTEST
+20 verbose already installed skipping es6-loader@0.2.0 /var/www/html/PHPLESSONS/aTEST
+21 verbose already installed skipping eslint-plugin-import@1.10.0 /var/www/html/PHPLESSONS/aTEST
+22 verbose already installed skipping eslint-plugin-promise@1.3.2 /var/www/html/PHPLESSONS/aTEST
+23 verbose already installed skipping eslint-plugin-react@5.2.2 /var/www/html/PHPLESSONS/aTEST
+24 verbose already installed skipping eslint-plugin-standard@1.3.2 /var/www/html/PHPLESSONS/aTEST
+25 verbose already installed skipping jade-loader@^0.8.0 /var/www/html/PHPLESSONS/aTEST
+26 verbose already installed skipping jade@^1.11.0 /var/www/html/PHPLESSONS/aTEST
+27 verbose already installed skipping jshint@^2.9.2 /var/www/html/PHPLESSONS/aTEST
+28 verbose already installed skipping style-loader@^0.13.1 /var/www/html/PHPLESSONS/aTEST
+29 verbose already installed skipping webpack@1.13.1 /var/www/html/PHPLESSONS/aTEST
+30 verbose already installed skipping webpack-dev-server@1.14.1 /var/www/html/PHPLESSONS/aTEST
+31 silly resolved []
+32 info build /var/www/html/PHPLESSONS/aTEST
+33 verbose linkStuff [ false, false, false, '/var/www/html/PHPLESSONS' ]
+34 info linkStuff @0.0.1
+35 verbose linkBins @0.0.1
+36 verbose linkMans @0.0.1
+37 verbose rebuildBundles @0.0.1
+38 verbose rebuildBundles [ '.bin',
+38 verbose rebuildBundles   'babel-core',
+38 verbose rebuildBundles   'babel-loader',
+38 verbose rebuildBundles   'babel-plugin-transform-es2015-modules-commonjs',
+38 verbose rebuildBundles   'babel-preset-es2015',
+38 verbose rebuildBundles   'css-loader',
+38 verbose rebuildBundles   'es6-loader',
+38 verbose rebuildBundles   'eslint',
+38 verbose rebuildBundles   'eslint-config-airbnb',
+38 verbose rebuildBundles   'eslint-plugin-import',
+38 verbose rebuildBundles   'eslint-plugin-jsx-a11y',
+38 verbose rebuildBundles   'eslint-plugin-promise',
+38 verbose rebuildBundles   'eslint-plugin-react',
+38 verbose rebuildBundles   'eslint-plugin-standard',
+38 verbose rebuildBundles   'jade',
+38 verbose rebuildBundles   'jade-loader',
+38 verbose rebuildBundles   'jshint',
+38 verbose rebuildBundles   'style-loader',
+38 verbose rebuildBundles   'webpack',
+38 verbose rebuildBundles   'webpack-dev-server' ]
+39 info install @0.0.1
+40 info postinstall @0.0.1
+41 info prepublish @0.0.1
+42 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/babel-preset-es2015/node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/babel-traverse requires babel-types@'^6.9.0' but will load
+42 warn unmet dependency undefined,
+42 warn unmet dependency which is version undefined
+43 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/babel-preset-es2015/node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/babel-traverse requires lodash@'^4.2.0' but will load
+43 warn unmet dependency undefined,
+43 warn unmet dependency which is version undefined
+44 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/babel-preset-es2015/node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/babel-template requires babel-types@'^6.9.0' but will load
+44 warn unmet dependency undefined,
+44 warn unmet dependency which is version undefined
+45 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/babel-preset-es2015/node_modules/babel-plugin-transform-es2015-block-scoping/node_modules/babel-template requires lodash@'^4.2.0' but will load
+45 warn unmet dependency undefined,
+45 warn unmet dependency which is version undefined
+46 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/css-loader/node_modules/cssnano requires object-assign@'^4.0.1' but will load
+46 warn unmet dependency undefined,
+46 warn unmet dependency which is version undefined
+47 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/css-loader/node_modules/loader-utils requires object-assign@'^4.0.1' but will load
+47 warn unmet dependency undefined,
+47 warn unmet dependency which is version undefined
+48 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/css-loader/node_modules/cssnano/node_modules/postcss-minify-font-values requires object-assign@'^4.0.1' but will load
+48 warn unmet dependency undefined,
+48 warn unmet dependency which is version undefined
+49 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/css-loader/node_modules/cssnano/node_modules/postcss-normalize-url/node_modules/normalize-url requires object-assign@'^4.0.1' but will load
+49 warn unmet dependency undefined,
+49 warn unmet dependency which is version undefined
+50 warn unmet dependency /var/www/html/PHPLESSONS/aTEST/node_modules/css-loader/node_modules/cssnano/node_modules/postcss-normalize-url/node_modules/normalize-url/node_modules/query-string requires object-assign@'^4.1.0' but will load
+50 warn unmet dependency undefined,
+50 warn unmet dependency which is version undefined
+51 error peerinvalid The package eslint does not satisfy its siblings' peerDependencies requirements!
+51 error peerinvalid Peer eslint-plugin-jsx-a11y@2.0.1 wants eslint@^2.10.2 || 3.x
+51 error peerinvalid Peer eslint-config-airbnb@9.0.1 wants eslint@^2.9.0
+51 error peerinvalid Peer eslint-plugin-import@1.10.0 wants eslint@2.x
+52 error System Linux 3.16.0-38-generic
+53 error command "node" "/usr/local/bin/npm" "install"
+54 error cwd /var/www/html/PHPLESSONS/aTEST
+55 error node -v v0.10.25
+56 error npm -v 1.4.14
+57 error code EPEERINVALID
+58 verbose exit [ 1, true ]

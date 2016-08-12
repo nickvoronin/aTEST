@@ -16,18 +16,22 @@
 
 
 <?php
-/*
+
 require_once '../server/functions.php';
-//require_once '../server/Clases/App.php';
-require_once '../server/Clases/RequestInfo.php';
+require_once '../server/Classes/App.php';
+require_once '../server/Classes/RequestInfo.php';
 
 
 
 //var_dump(getallheaders());
 
+
+
 if(isset($_SERVER['REQUEST_METHOD'])){
-  require_once '../server/json.php';
+  require_once 'json.php';
+  echo '<br>';
   echo $RInfo->method;
+  //print_r($_SERVER);
   //var_dump(getallheaders());
   //echo 'da';
   

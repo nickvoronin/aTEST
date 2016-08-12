@@ -1,11 +1,15 @@
-<?php // Example 26-1: functions.php
-$dbhost  = 'localhost';    // Unlikely to require changing
-$dbname  = 'Oxana_tests';   // Modify these...
-$dbuser  = 'root';   // ...variables according
-$dbpass  = '297604200';   // ...to your installation
-//$appname = "Robin's Nest"; // ...and preference
+<?php 
+/*
+ * This function file, this file cillect function for mysql query, 
+ * transfom json string to array, sanitize query string, check users.
+ * 
+ * @author Dmitrii Lazucov
+ * 
+ */
+require_once 'config.php';
 
-$connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+
+$connection = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 if ($connection->connect_error) {
   die($connection->connect_error);
 }
@@ -38,7 +42,6 @@ function destroySession() {
 function sanitizeString($var) {
   global $connection;
   $var = strip_tags($var);
-  //$var = htmlentities($var);
   $var = stripslashes($var);
   return $connection->real_escape_string($var);
 }
@@ -57,7 +60,7 @@ function showProfile($user) {
 
 
 function jsonToArray($jason_str) {
-    $array_request=array(json_decode($jason_str, true))[0];
+    $array_request=array(json_decode($jason_str, true));
     array_walk_recursive($array_request, 'cleaner');
     
     return $array_request;

@@ -875,7 +875,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var BASE_URL = "index.php";
+	var BASE_URL = "json.php";
 	/**
 	 * @class Model
 	 */
@@ -926,7 +926,7 @@
 				var _this = this;
 	
 				// TODO change fake url!!!
-				var fakeURL = "json.php";
+				var fakeURL = "";
 	
 				var fetchURL = "";
 				var req = this._makeRequest("GET", fakeURL);
