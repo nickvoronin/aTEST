@@ -1,14 +1,20 @@
-<?php
+<?php 
 
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This file responds to request, issues json string.
+ * 
+ * @author Dmitrii Lazucov
+ * 
+ * License GNU
  */
-require_once 'functions.php';
+require_once '../server/functions.php';
+require_once '../server/Classes/App.php';
+require_once '../server/Classes/RequestInfo.php';
+
+/*
 //add_topic.php
 $topic_qwery = array(
-                     "user"=>"angela",
+                     "user"=>"Valera",
                      "name" =>"Topic name",
                      "description" =>"Sample description",
                      "language" =>"ru"
@@ -18,7 +24,7 @@ $return= array("topic_id"=>12);
         
 //add_question.php
 $question_qwery = array(
-                        "user"=>"angela",
+                        "user"=>"Valera",
                         "topic_id"=>12,
                         "question"=>"Is this a question?",
                         "versions"=>array("yes", "no", "maybe"),
@@ -29,7 +35,7 @@ $question_qwery = array(
 
 //add_test.php
 $test_qwery=array(
-                  "user"=>"angela",
+                  "user"=>"Valera",
                   "topics_id"=>12,
                   "number_of_questions"=>30,
                   "timer"=>30,
@@ -42,7 +48,7 @@ $test_qwery=array(
 
 //edit_topic.php
 $edit_topic_qwery=array(
-                        "user"=>"angela",
+                        "user"=>"Valera",
                         "topic_id" => 12,
                         "data"=>array(
                                       "name"=>"Sample test",
@@ -72,7 +78,7 @@ $json=json_encode($edit_topic_qwery);
 
 
   //echo '<br>';
-  $out=array(json_decode($json, true))[0];
+  $out=(json_decode($json, true));
   array_walk_recursive($out, 'efgt');
   function efgt(&$item, $key) {
     $item=  SanitizeString($item);
@@ -95,5 +101,16 @@ $json_out=json_encode($out);
     
         //header("fruit: apple");
     //var_dump(headers_list());
+ * 
+ */
+
+
+echo $app->viewTopics;
+$param=$app->requestArray;
+
+if($RInfo->method=='POST'){
+  echo $app->add_topic($param);
+}
+//
   ?>
 

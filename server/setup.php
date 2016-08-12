@@ -7,40 +7,49 @@
 
     <h3>Setting up...</h3>
 
-<?php // Example 26-3: setup.php
+<?php 
+/*
+ * this is setup file, must run first, this script create db tabales for users,
+ * topics, cards, tests.
+ * 
+ * @author Dmitrii Lazucov
+ * 
+ */
   require_once 'functions.php';
 
   createTable('topics',
-              'id SMALLINT NOT NULL AUTO_INCREMENT,
-              topic VARCHAR(500),
-              language VARCHAR(2),
+              'topic_id SMALLINT NOT NULL AUTO_INCREMENT,
+              topic_name VARCHAR(500),
+              topic_description VARCHAR(5000),
+              topic_language VARCHAR(2),
               user VARCHAR(20),
-              state INT(1),
-              INDEX(topic(20)),
-              PRIMARY KEY (id)');
-/*
-  createTable('tests', 
-              'id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-              auth VARCHAR(16),
-              recip VARCHAR(16),
-              pm CHAR(1),
-              time INT UNSIGNED,
-              message VARCHAR(4096),
-              INDEX(auth(6)),
-              INDEX(recip(6))');
-
-  createTable("topic",
+              INDEX(topic_name(20)),
+              PRIMARY KEY (topic_id)');
+  
+  createTable('users',
               'user VARCHAR(16),
-              friend VARCHAR(16),
-              INDEX(user(6)),
-              INDEX(friend(6))');
-
-  createTable('profiles',
-              'user VARCHAR(16),
-              text VARCHAR(4096),
+              pass VARCHAR(16),
               INDEX(user(6))');
- * 
- */
+  
+  createTable('tests',
+              'test_id SMALLINT NOT NULL AUTO_INCREMENT,
+              topics_id VARCHAR(500),
+              test_description VARCHAR(5000),
+              number_of_questions SMALLINT(3),
+              test_timer SMALLINT(3),
+              test_is_active VARCHAR(5),
+              INDEX(test_description(20)),
+              PRIMARY KEY (test_id)');
+  
+  createTable('cards', 
+              'card_id SMALLINT NOT NULL AUTO_INCREMENT,
+              parent_topic_id SMALLINT (10),
+              question VARCHAR(4096),
+              versions VARCHAR(4096),
+              answer VARCHAR(4096),
+              card_price INT(1),
+              PRIMARY KEY (card_id)');
+
 ?>
 
     <br>...done.

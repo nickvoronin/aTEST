@@ -1,4 +1,4 @@
-const BASE_URL = "index.php";
+const BASE_URL = "json.php";
 /**
  * @class Model
  */
@@ -34,7 +34,7 @@ export default class Model {
 	 */
 	fetch(resolve) {
 		// TODO change fake url!!!
-		const fakeURL = "json.php";
+		const fakeURL = "";
 
 		const fetchURL = "";
 		const req = this._makeRequest("GET", fakeURL);
