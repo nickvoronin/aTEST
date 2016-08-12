@@ -27,38 +27,33 @@ export default class Model {
 		return JSON.parse(data);
 	}
 
-	/**
-	 * Fetch data
-	 * @param resolve - Callback function
-	 * @returns {XMLHttpRequest} - Request object
-	 */
-	fetch(resolve) {
-		// TODO change fake url!!!
-		const fakeURL = "";
 
-		const fetchURL = "";
-		const req = this._makeRequest("GET", fakeURL);
+	fetch(url = BASE_URL) {
 
-		req.onreadystatechange = () => {
-			if (req.readyState !== 4) return;
+		return new Promise(function(resolve, reject) {
 
-			if (req.status !== 200) {
-				// TODO Handle Error
-				console.log(req);
-				console.error("Error: Fetching failed " + req.status + " bitch");
-			} else {
-				const data = this.decode(req.responseText);
-				console.log(`Data fecth: ${typeof req.responseText}: ${req.responseText}`);
-				console.log(`Data fecth: ${data}: ${data.user}`);
-				this.setData(data);
-				// resolve(this.getData());
-			}
-		};
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', url, true);
 
-		req.send();
+			xhr.onload = function() {
+				if (this.status == 200) {
+					resolve(this.response);
+				} else {
+					var error = new Error(this.statusText);
+					error.code = this.status;
+					reject(error);
+				}
+			};
 
-		return req;
+			xhr.onerror = function() {
+				reject(new Error("Network Error"));
+			};
+
+			xhr.send();
+		});
+
 	}
+
 
 	save(resolve) {
 		const saveURL = "";

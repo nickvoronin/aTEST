@@ -50,19 +50,30 @@
 	
 	var _topic2 = _interopRequireDefault(_topic);
 	
-	var _model = __webpack_require__(7);
+	var _model = __webpack_require__(9);
 	
 	var _model2 = _interopRequireDefault(_model);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var topicOptions = {
-		el: document.querySelector(".app")
-	};
-	
-	var card = new _topic2.default(topicOptions);
 	var model = new _model2.default();
-	model.fetch();
+	model.fetch().then(function (response) {
+		return JSON.parse(response, function (key, value) {
+			if (key === "isRight") {
+				if (value === "false") {
+					return false;
+				}
+			}
+			return value;
+		})[0];
+	}).then(function (data) {
+		var options = {
+			data: data,
+			el: document.querySelector(".app")
+		};
+		console.log(data);
+		var topic = new _topic2.default(options);
+	});
 
 /***/ },
 /* 1 */
@@ -84,38 +95,46 @@
 	
 	var _card2 = _interopRequireDefault(_card);
 	
+	var _sidebar = __webpack_require__(7);
+	
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var defaultData = {
-		name: "Sample topic",
+		topic_id: "1",
+		topic_name: "Sample topic",
+		topic_description: "descr1",
+		topic_language: "ru",
+		"user": "oxana",
 		cards: [{
-			id: 0,
+			card_id: 0,
 			question: "Is this a question?",
 			responses: [{
-				text: "yes",
+				answer: "yes",
 				isRight: true
 			}, {
-				text: "no",
+				answer: "no",
 				isRight: false
 			}, {
-				text: "maybe",
+				answer: "maybe",
 				isRight: true
 			}],
-			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
+			зкшсу: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
 			rightAnswers: [0, 2]
 		}, {
-			id: 1,
+			card_id: 1,
 			question: "Wanna get high?",
 			responses: [{
-				text: "yes",
+				answer: "yes",
 				isRight: false
 			}, {
-				text: "sure",
+				answer: "sure",
 				isRight: true
 			}, {
-				text: "why not",
+				answer: "why not",
 				isRight: false
 			}],
 			reward: 2,
@@ -215,6 +234,10 @@
 						}
 					}
 				}
+	
+				new _sidebar2.default({
+					el: this.el.querySelector(".sidebar")
+				});
 			}
 		}, {
 			key: "renderCard",
@@ -271,8 +294,8 @@
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
-	;var locals_for_with = (locals || {});(function (name) {
-	buf.push("<link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><header class=\"header\"><div class=\"header__title\"><p>Создание Новой Темы</p></div></header><section class=\"topic\"><div class=\"wrapper\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"topic__name\"><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><ol class=\"topic__cards toggle col-9\"></ol><!-- sidebar will render here--><div class=\"sidebarAnalytics col-3 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div><button data-action=\"addcard\" class=\"addCard\">add card</button></div></section>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined));;return buf.join("");
+	;var locals_for_with = (locals || {});(function (topic_name) {
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><header class=\"header\"><div class=\"header__title\"><p>Создание Новой Темы</p></div></header><section class=\"topic\"><div class=\"wrapper\"><input type=\"text\"" + (jade.attr("value", topic_name, true, true)) + " placeholder=\"Название Темы\" class=\"topic__name\"><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><ol class=\"topic__cards toggle col-9\"></ol><!-- sidebar will render here--><div class=\"sidebar col-3 cf\"></div><button data-action=\"addcard\" class=\"addCard\">add card</button></div></section>");}.call(this,"topic_name" in locals_for_with?locals_for_with.topic_name:typeof topic_name!=="undefined"?topic_name:undefined));;return buf.join("");
 	}
 
 /***/ },
@@ -554,13 +577,13 @@
 	};
 	
 	var defaultCard = {
-		id: 0,
+		card_id: 0,
 		question: "",
 		responses: [{
-			text: "",
+			answer: "",
 			isRight: false
 		}, {
-			text: "",
+			answer: "",
 			isRight: false
 		}],
 		reward: 1
@@ -809,8 +832,8 @@
 	var buf = [];
 	var jade_mixins = {};
 	var jade_interp;
-	;var locals_for_with = (locals || {});(function (id, index, question, responses, undefined) {
-	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" tabindex=\"1\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">" + (jade.escape(null == (jade_interp = id) ? "" : jade_interp)) + "</span><input name=\"question\" data-action=\"showVersions\" type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"toggleVersions\" type=\"button\" class=\"card__header_edit\">Edit<span data-action=\"toggleVersions\" class=\"card__edit_indicator\">+</span></button></div><fieldset name=\"responses\" class=\"card__answers hidden\">");
+	;var locals_for_with = (locals || {});(function (card_id, index, question, responses, undefined) {
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/card/card.css\"><form action=\"\" tabindex=\"1\" class=\"card\"><div class=\"card__header\"><span class=\"card__header_number\">" + (jade.escape(null == (jade_interp = card_id) ? "" : jade_interp)) + "</span><input name=\"question\" data-action=\"showVersions\" type=\"text\"" + (jade.attr("value", question, true, true)) + " placeholder=\"Введите вопрос\" class=\"card__header_question\"><button data-action=\"toggleVersions\" type=\"button\" class=\"card__header_edit\">Edit<span data-action=\"toggleVersions\" class=\"card__edit_indicator\">+</span></button></div><fieldset name=\"responses\" class=\"card__answers hidden\">");
 	// iterate responses
 	;(function(){
 	  var $$obj = responses;
@@ -819,7 +842,7 @@
 	    for (var versionId = 0, $$l = $$obj.length; versionId < $$l; versionId++) {
 	      var response = $$obj[versionId];
 	
-	buf.push("<fieldset name=\"response\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input name=\"isRight\" type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input name=\"text\" type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
+	buf.push("<fieldset name=\"response\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input name=\"isRight\" type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input name=\"text\" type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.answer, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
 	    }
 	
 	  } else {
@@ -827,7 +850,7 @@
 	    for (var versionId in $$obj) {
 	      $$l++;      var response = $$obj[versionId];
 	
-	buf.push("<fieldset name=\"response\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input name=\"isRight\" type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input name=\"text\" type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.text, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
+	buf.push("<fieldset name=\"response\"" + (jade.attr("data-id", index, true, true)) + (jade.attr("data-versionId", versionId, true, true)) + " class=\"card__response col-12 cf\"><label>Правильный<input name=\"isRight\" type=\"checkbox\"" + (jade.attr("checked", response.isRight, true, true)) + " data-action=\"toggleRightVersion\" class=\"correct\"></label><input name=\"text\" type=\"text\"" + (jade.attr("data-id", versionId, true, true)) + (jade.attr("value", response.answer, true, true)) + " placeholder=\"Введите вариант ответа\" class=\"inputMain\"><div data-action=\"delete\" class=\"buttonDelete\"></div></fieldset>");
 	    }
 	
 	  }
@@ -856,11 +879,84 @@
 	  }
 	}).call(this);
 	
-	buf.push("</fieldset></fieldset><div class=\"col-1 cf\"><div class=\"filterOptions\"></div></div></form>");}.call(this,"id" in locals_for_with?locals_for_with.id:typeof id!=="undefined"?id:undefined,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
+	buf.push("</fieldset></fieldset></form>");}.call(this,"card_id" in locals_for_with?locals_for_with.card_id:typeof card_id!=="undefined"?card_id:undefined,"index" in locals_for_with?locals_for_with.index:typeof index!=="undefined"?index:undefined,"question" in locals_for_with?locals_for_with.question:typeof question!=="undefined"?question:undefined,"responses" in locals_for_with?locals_for_with.responses:typeof responses!=="undefined"?responses:undefined,"undefined" in locals_for_with?locals_for_with.undefined: false?undefined:undefined));;return buf.join("");
 	}
 
 /***/ },
 /* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _sidebar = __webpack_require__(8);
+	
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Index = function () {
+	  /**
+	   * @param {Object} options
+	    */
+	  function Index(options) {
+	    _classCallCheck(this, Index);
+	
+	    this.el = options.el;
+	    this.data = options.data || {};
+	    this._template = _sidebar2.default;
+	
+	    this.setData(this.data);
+	
+	    this.render();
+	    this._initEvents();
+	  }
+	
+	  _createClass(Index, [{
+	    key: "render",
+	    value: function render() {
+	      this.el.innerHTML = this._template();
+	    }
+	  }, {
+	    key: "_initEvents",
+	    value: function _initEvents() {
+	      // TODO
+	    }
+	  }, {
+	    key: "setData",
+	    value: function setData(data) {
+	      this.data = data;
+	    }
+	  }]);
+	
+	  return Index;
+	}();
+	
+	exports.default = Index;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(3);
+	
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/sidebar/sidebar.css\"><div class=\"sidebar__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul>");;return buf.join("");
+	}
+
+/***/ },
+/* 9 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -868,8 +964,6 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -913,48 +1007,38 @@
 			value: function decode(data) {
 				return JSON.parse(data);
 			}
-	
-			/**
-	   * Fetch data
-	   * @param resolve - Callback function
-	   * @returns {XMLHttpRequest} - Request object
-	   */
-	
 		}, {
 			key: "fetch",
-			value: function fetch(resolve) {
-				var _this = this;
+			value: function fetch() {
+				var url = arguments.length <= 0 || arguments[0] === undefined ? BASE_URL : arguments[0];
 	
-				// TODO change fake url!!!
-				var fakeURL = "";
 	
-				var fetchURL = "";
-				var req = this._makeRequest("GET", fakeURL);
+				return new Promise(function (resolve, reject) {
 	
-				req.onreadystatechange = function () {
-					if (req.readyState !== 4) return;
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', url, true);
 	
-					if (req.status !== 200) {
-						// TODO Handle Error
-						console.log(req);
-						console.error("Error: Fetching failed " + req.status + " bitch");
-					} else {
-						var data = _this.decode(req.responseText);
-						console.log("Data fecth: " + _typeof(req.responseText) + ": " + req.responseText);
-						console.log("Data fecth: " + data + ": " + data.user);
-						_this.setData(data);
-						// resolve(this.getData());
-					}
-				};
+					xhr.onload = function () {
+						if (this.status == 200) {
+							resolve(this.response);
+						} else {
+							var error = new Error(this.statusText);
+							error.code = this.status;
+							reject(error);
+						}
+					};
 	
-				req.send();
+					xhr.onerror = function () {
+						reject(new Error("Network Error"));
+					};
 	
-				return req;
+					xhr.send();
+				});
 			}
 		}, {
 			key: "save",
 			value: function save(resolve) {
-				var _this2 = this;
+				var _this = this;
 	
 				var saveURL = "";
 				var req = this._makeRequest("POST", saveURL);
@@ -966,10 +1050,10 @@
 						// TODO Handle Error
 						console.error("Error: Fetching failed  " + req.status + " bitch");
 					} else {
-						var data = _this2.decode(req.responseText);
+						var data = _this.decode(req.responseText);
 						console.log(data);
-						_this2.setData(data);
-						resolve(_this2.getData());
+						_this.setData(data);
+						resolve(_this.getData());
 					}
 				};
 	

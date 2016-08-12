@@ -3,7 +3,7 @@ link(rel="stylesheet", href="../source/components/card/card.css")
 
 form(action="" tabindex=1).card
     .card__header
-        span.card__header_number= id
+        span.card__header_number= card_id
         input(name="question" data-action="showVersions" type="text" value= question placeholder="Введите вопрос").card__header_question
         button(data-action="toggleVersions" type="button").card__header_edit Edit
             span(data-action="toggleVersions").card__edit_indicator +
@@ -12,7 +12,7 @@ form(action="" tabindex=1).card
             fieldset(name="response" data-id= index data-versionId= versionId).card__response.col-12.cf
                 label Правильный
                     input(name="isRight" type="checkbox" checked= response.isRight data-action="toggleRightVersion" ).correct
-                input(name="text" type="text" data-id= versionId value= response.text placeholder="Введите вариант ответа").inputMain
+                input(name="text" type="text" data-id= versionId value= response.answer placeholder="Введите вариант ответа").inputMain
                 .buttonDelete(data-action= 'delete')
 
 
@@ -23,8 +23,6 @@ form(action="" tabindex=1).card
                     input(name="radio" type="radio" data-id= id).card__difficulty_radio
 
 
-    .col-1.cf
-        .filterOptions
 
 
 

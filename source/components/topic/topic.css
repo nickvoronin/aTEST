@@ -91,16 +91,9 @@ body {
   font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
 }
 .inputMain {
-  padding: 10px;
-  width: 100%;
-  font-size: 18px;
-  font-weight: 400;
-  color: #5f5e5e;
-  border: 1px solid #c7c7c7;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
+  width: 75%;
+  font-size: 13px;
+  color: #333;
 }
 
 .wrapper {
@@ -181,29 +174,6 @@ body {
   text-align: center;
 }
 
-
-
-
-
-/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
-
-.sidebarAnalytics__title {
-}
-
-.sidebarAnalytics ul {
-  list-style: none;
-  margin-top: 10px;
-}
-.sidebarAnalytics ul li p {
-  font-size: 12px;
-  font-weight: 100;
-  padding: 2px 0;
-}
-.sidebarAnalytics ul span {
-  float: right;
-  font-weight: 100;
-}
-
 /* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
 
 .filterOptions {
@@ -269,25 +239,17 @@ body {
   background: url("../img/edit-dark.png");
 }
 .topic__name {
+  width: 100%;
   background: none;
-  outline: none;
+  padding: 7px;
   color: #8f8f8f;
-  width: 100%;
-  font-size: 25px;
+  font-size: 15px;
   font-weight: 100;
-  padding: 10px;
-  width: 100%;
-  color: #5f5e5e;
   border: 1px solid transparent;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  font-family: "Roboto-Condensed", Helvetica, Arial, sans-serif;
-  -webkit-transition: all 300ms ease-in-out;
-  -moz-transition: all 300ms ease-in-out;
-  -ms-transition: all 300ms ease-in-out;
-  -o-transition: all 300ms ease-in-out;
-  transition: all 300ms ease-in-out;
+  border-radius: 3px;
+  outline: none;
+  margin-bottom: 30px;
+  box-sizing: border-box;
 }
 .topic__name:focus {
   background: #fff url('../img/backgroundLine.png');
@@ -298,37 +260,28 @@ body {
   -o-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
 }
-.sidebarAnalytics {
-  background: #4a665e url("../card/img/backgroundLine.png");
-  border: 1px solid #c7c7c7;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  padding: 15px;
-  height: 400px;
-  overflow-x: auto;
-  box-sizing: border-box;
-  color: #fff;
-}
-
 
 .topic__cards {
   background: #4a665e url(../card/img/backgroundLine.png);
   border: 1px solid #c7c7c7;
+  list-style: none;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  padding: 15px;
+  padding: 10px;
   height: 400px;
   overflow-x: auto;
   box-sizing: border-box;
+  margin: 0;
 }
-
-
-
-
-
-
+.topic__cards li:before,
+.topic__cards li:after {
+  content: "";
+  display: table;
+}
+.topic__cards li:after {
+  clear: both;
+}
 
 /* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
 
@@ -356,4 +309,50 @@ body {
   top: -47px;
   right: 0;
   cursor: pointer;
+}
+
+/* ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## */
+
+.addCard {
+  display: inline-block;
+  padding: 12px 10px;
+  min-width: 125px;
+  background: #384b46;
+  font-size: 20px;
+  font-weight: 500;
+  color: #ccc;
+  border: 1px solid #2e403b;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  opacity: 0.8;
+  margin: 20px 0;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.addCard:hover {
+  background: #465b56;
+  color: #fff;
+}
+
+.card__response label {
+  float: left;
+  cursor: pointer;
+  position: relative;
+  width: 25px;
+}
+
+.card__response label:after {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  content: '';
+  left: -25px;
+  top: 0;
+  background: url("img/like.png");
+  opacity: 0.7;
+}
+.card__response label:hover:after {
+  opacity: 1;
 }

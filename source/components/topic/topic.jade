@@ -7,23 +7,12 @@ header.header
 
 section.topic
     .wrapper
-        input(type="text" value= name placeholder="Название Темы").topic__name
+        input(type="text" value= topic_name placeholder="Название Темы").topic__name
         // ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##
         ol.topic__cards.toggle.col-9
         // sidebar will render here
-        .sidebarAnalytics.col-3.cf
-            .sidebarAnalytics__title
-                p Topic Info
-            ul
-                li
-                    p Сложность 1
-                        span 5
-                li
-                    p Сложность 2
-                        span 3
-                li
-                    p Сложность 3
-                        span 7
+        .sidebar.col-3.cf
+
         button.addCard(data-action="addcard") add card
 
 

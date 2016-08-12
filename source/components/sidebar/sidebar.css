@@ -1,0 +1,24 @@
+.sidebar {
+  background: #4a665e url("../card/img/backgroundLine.png");
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 15px;
+  height: 400px;
+  overflow-x: auto;
+  box-sizing: border-box;
+  color: #fff;
+}
+.sidebar {
+  background: #4a665e url("../card/img/backgroundLine.png");
+  border: 1px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 15px;
+  height: 400px;
+  overflow-x: auto;
+  box-sizing: border-box;
+  color: #fff;
+}

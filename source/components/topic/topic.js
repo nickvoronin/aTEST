@@ -1,43 +1,48 @@
 import template from "./topic.jade";
 import Card from "../card/card.js";
+import Sidebar from "../sidebar/sidebar.js";
 
 const defaultData = {
-	name: "Sample topic",
+	topic_id: "1",
+	topic_name: "Sample topic",
+	topic_description: "descr1",
+	topic_language: "ru",
+	"user": "oxana",
 	cards: [
 		{
-			id: 0,
+			card_id: 0,
 			question: "Is this a question?",
 			responses: [
 				{
-					text: "yes",
+					answer: "yes",
 					isRight: true,
 				},
 				{
-					text: "no",
+					answer: "no",
 					isRight: false,
 				},
 				{
-					text: "maybe",
+					answer: "maybe",
 					isRight: true,
 				},
 			],
-			reward: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
+			зкшсу: 5, // ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð²
 			rightAnswers: [0, 2],
 		},
 		{
-			id: 1,
+			card_id: 1,
 			question: "Wanna get high?",
 			responses: [
 				{
-					text: "yes",
+					answer: "yes",
 					isRight: false,
 				},
 				{
-					text: "sure",
+					answer: "sure",
 					isRight: true,
 				},
 				{
-					text: "why not",
+					answer: "why not",
 					isRight: false,
 				},
 			],
@@ -110,6 +115,10 @@ export default class Topic {
 		for (const card of data.cards) {
 			this.renderCard(card);
 		}
+
+		new Sidebar({
+			el: this.el.querySelector(".sidebar")
+		});
 	}
 
 	renderCard(data) {

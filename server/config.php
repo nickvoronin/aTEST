@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * This file contains the following configurations:
  *
  * MySQL settings
@@ -8,10 +8,10 @@
  * Database table prefix
  * ABSPATH
  *
- * 
+ *
  * @author Dmitrii Lazucov
- * 
- * 
+ *
+ *
  */
 
 

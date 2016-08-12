@@ -6,15 +6,15 @@ const defaultCardResponse = {
 };
 
 const defaultCard = {
-	id: 0,
+	card_id: 0,
 	question: "",
 	responses: [
 		{
-			text: "",
+			answer: "",
 			isRight: false,
 		},
 		{
-			text: "",
+			answer: "",
 			isRight: false,
 		},
 	],

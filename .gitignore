@@ -3,3 +3,4 @@ public/main.js
 .directory
 .idea/
 node_modules/
+server/config.php
