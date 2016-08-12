@@ -58,21 +58,14 @@
 	
 	var model = new _model2.default();
 	model.fetch().then(function (response) {
-		return JSON.parse(response, function (key, value) {
-			if (key === "isRight") {
-				if (value === "false") {
-					return false;
-				}
-			}
-			return value;
-		})[0];
+	  return JSON.parse(response)[0];
 	}).then(function (data) {
-		var options = {
-			data: data,
-			el: document.querySelector(".app")
-		};
-		console.log(data);
-		var topic = new _topic2.default(options);
+	  var options = {
+	    data: data,
+	    el: document.querySelector(".app")
+	  };
+	  console.log(data);
+	  var topic = new _topic2.default(options);
 	});
 
 /***/ },

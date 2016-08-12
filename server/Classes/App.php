@@ -78,7 +78,9 @@ class App {
             );
     /* fetch associative array */
     while ($row = $tables->fetch_assoc()) {
-      $responses_array[]=$row;
+      $alt['isRight']=(bool)$row['isRight'];
+      $rows=array_replace($row, $alt);
+      $responses_array[]=$rows;
     }
     /* free result set */
     $tables->free();
@@ -181,7 +183,12 @@ class App {
   public function add_responses($array, $card_id) {
     foreach ($array as $value) {
       $query_answer=$value['answer'];
-      $query_is_right=$value['isRight'];
+      if($value['isRight']=="true"){
+        $query_is_right=1;
+      } else {
+          $query_is_right=0;
+        }
+      
       queryMysql(
               "INSERT INTO rsponses VALUES("
                                         . "'$card_id', "
@@ -214,7 +221,11 @@ class App {
   public function edit_responses($array, $card_id) {
     foreach ($array as $value) {
       $query_answer=$value['answer'];
-      $query_is_right=$value['isRight'];
+      if($value['isRight']=="true"){
+        $query_is_right=1;
+      } else {
+          $query_is_right=0;
+        }
     queryMysql(
             "UPDATE rsponses "
           . "SET answer='$query_answer', "
