@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * This file contains the following configurations:
  *
  * MySQL settings
@@ -8,10 +8,10 @@
  * Database table prefix
  * ABSPATH
  *
- * 
+ *
  * @author Dmitrii Lazucov
- * 
- * 
+ *
+ *
  */
 
 
@@ -23,7 +23,7 @@ define('DB_NAME', 'aTEST');
 define('DB_USER', 'root');
 
 /** MySQL database password */
-define('DB_PASSWORD', '297604200');
+define('DB_PASSWORD', '1');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
