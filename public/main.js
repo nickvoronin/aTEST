@@ -84,6 +84,10 @@
 	
 	var _card2 = _interopRequireDefault(_card);
 	
+	var _sidebar = __webpack_require__(8);
+	
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -215,6 +219,10 @@
 						}
 					}
 				}
+	
+				new _sidebar2.default({
+					el: this.el.querySelector(".sidebar")
+				});
 			}
 		}, {
 			key: "renderCard",
@@ -272,7 +280,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 	;var locals_for_with = (locals || {});(function (name) {
-	buf.push("<link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><header class=\"header\"><div class=\"header__title\"><p>Создание Новой Темы</p></div></header><section class=\"topic\"><div class=\"wrapper\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"topic__name\"><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><ol class=\"topic__cards toggle col-9\"></ol><!-- sidebar will render here--><div class=\"sidebarAnalytics col-3 cf\"><div class=\"sidebarAnalytics__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul></div><button data-action=\"addcard\" class=\"addCard\">add card</button></div></section>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined));;return buf.join("");
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/topic/topic.css\"><header class=\"header\"><div class=\"header__title\"><p>Создание Новой Темы</p></div></header><section class=\"topic\"><div class=\"wrapper\"><input type=\"text\"" + (jade.attr("value", name, true, true)) + " placeholder=\"Название Темы\" class=\"topic__name\"><!-- ## ## ## ## ## ## ## ## ## ## ## ## CARDS WILL RENDER HERE ## ## ## ## ## ## ## ## ## ## ## ## ## ##--><ol class=\"topic__cards toggle col-9\"></ol><!-- sidebar will render here--><div class=\"sidebar col-3 cf\"></div><button data-action=\"addcard\" class=\"addCard\">add card</button></div></section>");}.call(this,"name" in locals_for_with?locals_for_with.name:typeof name!=="undefined"?name:undefined));;return buf.join("");
 	}
 
 /***/ },
@@ -1001,6 +1009,79 @@
 	}();
 	
 	exports.default = Model;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _sidebar = __webpack_require__(9);
+	
+	var _sidebar2 = _interopRequireDefault(_sidebar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Index = function () {
+	  /**
+	   * @param {Object} options
+	    */
+	  function Index(options) {
+	    _classCallCheck(this, Index);
+	
+	    this.el = options.el;
+	    this.data = options.data || {};
+	    this._template = _sidebar2.default;
+	
+	    this.setData(this.data);
+	
+	    this.render();
+	    this._initEvents();
+	  }
+	
+	  _createClass(Index, [{
+	    key: "render",
+	    value: function render() {
+	      this.el.innerHTML = this._template();
+	    }
+	  }, {
+	    key: "_initEvents",
+	    value: function _initEvents() {
+	      // TODO
+	    }
+	  }, {
+	    key: "setData",
+	    value: function setData(data) {
+	      this.data = data;
+	    }
+	  }]);
+	
+	  return Index;
+	}();
+	
+	exports.default = Index;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var jade = __webpack_require__(3);
+	
+	module.exports = function template(locals) {
+	var buf = [];
+	var jade_mixins = {};
+	var jade_interp;
+	
+	buf.push("<link rel=\"stylesheet\" href=\"../source/components/sidebar/sidebar.css\"><div class=\"sidebar__title\"><p>Topic Info</p></div><ul><li><p>Сложность 1<span>5</span></p></li><li><p>Сложность 2<span>3</span></p></li><li><p>Сложность 3<span>7</span></p></li></ul>");;return buf.join("");
+	}
 
 /***/ }
 /******/ ]);

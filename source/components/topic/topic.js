@@ -1,5 +1,6 @@
 import template from "./topic.jade";
 import Card from "../card/card.js";
+import Sidebar from "../sidebar/sidebar.js";
 
 const defaultData = {
 	name: "Sample topic",
@@ -110,6 +111,10 @@ export default class Topic {
 		for (const card of data.cards) {
 			this.renderCard(card);
 		}
+
+		new Sidebar({
+			el: this.el.querySelector(".sidebar")
+		});
 	}
 
 	renderCard(data) {

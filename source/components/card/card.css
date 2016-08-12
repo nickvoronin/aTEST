@@ -1,9 +1,3 @@
-
-.card {
-  float: left;
-  padding-top: 5px;
-}
-
 .card p {
   font-size: 13px;
   padding: 2px 20px 0 5px;
@@ -14,12 +8,33 @@
 
 .card__header_number {
   float: left;
-  padding-top: 5px;
+  font-size: 11px;
   font-weight: 100;
+  width: 30px;
+  text-align: center;
+  line-height: 25px;
 }
 .card__header_question {
-  padding-left: 30px;
-  padding-right: 80px;
+  width: 700px;
+  font-size: 13px;
+  color: #333;
+  padding: 5px 15px;
+  border: none;
+  background: #c1e3d6;
+  outline: none;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+.card__header_question:focus {
+  background: #fff;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
 }
 .card__header_question input {
   background: #dcebf1;
@@ -55,13 +70,19 @@
 }
 .card__header_edit {
   position: absolute;
-  right: 15px;
-  top: 11px;
-  font-size: 13px;
+  font-size: 10px;
+  right: 10px;
+  top: 7.5px;
   cursor: pointer;
   background: #4a665e;
   padding: 4px 10px;
+  border: none;
+  color: #eee;
   border-radius: 2px;
+  outline: none;
+}
+.card__header_edit:hover {
+  background: #556f65;
   color: #fff;
 }
 .card__edit_indicator {
@@ -69,24 +90,24 @@
 }
 .card__answers_add {
   padding: 10px;
-  width: 100%;
+  width: auto!important;
+  margin: 0!important;
   font-family: Arial, sans-serif;
   font-size: 18px;
-  font-weight: 400;
-  color: #5f5e5e;
   border: 1px solid #c7c7c7;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  border-radius: 5px;
+  border-radius: 2px;
   margin-bottom: 10px;
-  background: #4a665e;
-  color: #fff!important;
+  background: #4a665e!important;
+  color: #eee!important;
   font-weight: 100;
   outline: none;
+  float: right;
 }
 .card__answers_add:hover {
-  background: #4a665e url('../card/img/backgroundLine.png');
-  color: #eee!important;
+  background: #4a665e url('../card/img/backgroundLine.png')!important;
+  color: #fff!important;
 }
 .creatingNewTopicsPageSectionSaveButton {
   display: inline-block;
@@ -151,11 +172,11 @@
 .buttonDelete:after {
   position: absolute;
   content: '';
-  width: 24px;
-  height: 24px;
-  background: url('../card/img/buttonClose.png.png');
-  top: -40px;
-  right: 0px;
+  width: 20px;
+  height: 20px;
+  background: url('img/close.png');
+  top: -33px;
+  right: -25px;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -170,9 +191,9 @@ form {
   list-style: none;
   font-size: 16px;
   position: relative;
-  padding: 10px 40px 10px 15px;
+  padding: 5px;
   border-radius: 2px;
-  background: #c1d9e3;
+  background: #c1e3d6;
   color: #777;
   margin-bottom: 5px;
 }
@@ -185,7 +206,8 @@ form:after {
   clear: both;
 }
 .card__answers {
-  padding: 10px 30px 0;
+  padding: 0 60px;
+  margin-top: 10px;
 }
 .card__answers.open {
   display: block!important;
@@ -194,9 +216,23 @@ form:after {
   display: block;
 }
 .card__answers input {
+  width: 95%;
   margin-bottom: 10px;
   font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #333;
+  padding: 5px 15px;
+  border: none;
+  background: #fff;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-transition: all 300ms ease-in-out;
+  -moz-transition: all 300ms ease-in-out;
+  -ms-transition: all 300ms ease-in-out;
+  -o-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
 }
 
-
-
+.correct {
+  margin-top: 7px!important;
+}
