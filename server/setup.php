@@ -18,13 +18,13 @@
   require_once 'functions.php';
 
   createTable('topics',
-              'topic_id SMALLINT NOT NULL AUTO_INCREMENT,
-              topic_name VARCHAR(500),
-              topic_description VARCHAR(5000),
-              topic_language VARCHAR(2),
+              'topicId SMALLINT NOT NULL AUTO_INCREMENT,
+              topicName VARCHAR(500),
+              topicDescription VARCHAR(5000),
+              topicLanguage VARCHAR(2),
               user VARCHAR(20),
-              INDEX(topic_name(20)),
-              PRIMARY KEY (topic_id)');
+              INDEX(topicName(20)),
+              PRIMARY KEY (topicId)');
   
   createTable('users',
               'user VARCHAR(16),
@@ -32,23 +32,26 @@
               INDEX(user(6))');
   
   createTable('tests',
-              'test_id SMALLINT NOT NULL AUTO_INCREMENT,
-              topics_id VARCHAR(500),
-              test_description VARCHAR(5000),
-              number_of_questions SMALLINT(3),
-              test_timer SMALLINT(3),
-              test_is_active VARCHAR(5),
-              INDEX(test_description(20)),
-              PRIMARY KEY (test_id)');
+              'testId SMALLINT NOT NULL AUTO_INCREMENT,
+              topicsId VARCHAR(500),
+              testDescription VARCHAR(5000),
+              numberOfQuestions SMALLINT(3),
+              testTimer SMALLINT(3),
+              testIsActive VARCHAR(5),
+              INDEX(testDescription(20)),
+              PRIMARY KEY (testId)');
   
   createTable('cards', 
-              'card_id SMALLINT NOT NULL AUTO_INCREMENT,
-              parent_topic_id SMALLINT (10),
+              'cardId SMALLINT NOT NULL AUTO_INCREMENT,
+              parentTopicId SMALLINT (10),
               question VARCHAR(4096),
-              versions VARCHAR(4096),
+              cardPrice INT(1),
+              PRIMARY KEY (cardId)');
+  
+  createTable('responses', 
+              'parentCardId SMALLINT (10),
               answer VARCHAR(4096),
-              card_price INT(1),
-              PRIMARY KEY (card_id)');
+              isRight VARCHAR(5)');
 
 ?>
 
