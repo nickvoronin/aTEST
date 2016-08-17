@@ -2,20 +2,21 @@ import Topic from "../topic/topic.js";
 import Model from "../model/model.js";
 
 const model = new Model();
-model.fetch()
+
+const options = {
+  el: document.querySelector(".app"),
+};
+
+model.getTopic()
 	.then(response => {
 		return JSON.parse(response)[0];
 	})
-	.then(data => {
-		data.cards = data.card;
-		delete data.card;
-		const options = {
-			//data: data,
-			el: document.querySelector(".app"),
-		};
-		console.log(data);
+  .then(data => options.data = data)
+  .catch(e => console.log("getTopic Error" + e));
+
 		const topic = new Topic(options);
-	});
+const data = topic.getData();
 
-
-
+model.saveTopic(data)
+  .then(response => console.log(response))
+  .catch(e => console.log("saveTopic Error" + e));

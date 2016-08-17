@@ -28,7 +28,7 @@ export default class Model {
 	}
 
 
-	fetch(url = BASE_URL) {
+	getTopic(url = BASE_URL) {
 
 		return new Promise(function(resolve, reject) {
 
@@ -55,27 +55,28 @@ export default class Model {
 	}
 
 
-	save(resolve) {
-		const saveURL = "";
-		const req = this._makeRequest("POST", saveURL);
+	saveTopic(data, url = BASE_URL) {
+		return new Promise(function(resolve, reject) {
 
-		req.onreadystatechange = () => {
-			if (req.readyState !== 4) return;
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', url, true);
 
-			if (req.status !== 200) {
-				// TODO Handle Error
-				console.error(`Error: Fetching failed  ${req.status} bitch`);
+			xhr.onload = function() {
+				if (this.status == 200) {
+					resolve(this.response);
 			} else {
-				const data = this.decode(req.responseText);
-				console.log(data);
-				this.setData(data);
-				resolve(this.getData());
+					var error = new Error(this.statusText);
+					error.code = this.status;
+					reject(error);
 			}
 		};
 
-		req.send();
+			xhr.onerror = function() {
+				reject(new Error("Network Error"));
+			};
 
-		return req;
+			xhr.send(JSON.stringify(data));
+		});
 	}
 
 	/**
